@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-08-23T05:11:51.206852",
+  "tests": [
+    {
+      "test": "variable_enumeration",
+      "success": true,
+      "variable_count": 1
+    },
+    {
+      "test": "read_SecureBoot",
+      "success": false,
+      "readable": false
+    },
+    {
+      "test": "read_SetupMode",
+      "success": false,
+      "readable": false
+    },
+    {
+      "test": "read_PK",
+      "success": false,
+      "readable": false
+    }
+  ]
+}

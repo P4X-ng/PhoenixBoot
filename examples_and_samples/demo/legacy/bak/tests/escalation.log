@@ -1,0 +1,138 @@
+🔥 PhoenixGuard Progressive Escalation Testing
+Started: 2025-08-24T23:03:52Z
+
+🔍 LEVEL 1: Software Bootkit Scanning
+🎯 PhoenixGuard Bootkit Detection Engine
+Hunting for firmware-level malware...
+
+🔍 Scanning system for bootkit infections...
+2025-08-24 19:03:56,537 - INFO - Loaded baseline: G615LP.303
+2025-08-24 19:03:56,537 - INFO - 🔍 Starting bootkit detection scan...
+/home/punk/Projects/edk2-bootkit-defense/PhoenixGuard/scripts/detect_bootkit.py:245: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  self.detection_results['scan_timestamp'] = datetime.utcnow().isoformat()
+2025-08-24 19:03:58,670 - INFO - Scan complete - Risk Level: CLEAN
+2025-08-24 19:03:58,671 - INFO - Results saved to: bootkit_scan_results.json
+⚠️  Warning: Not running as root. Some firmware checks may be limited.
+   For full detection capabilities, run: sudo python3 detect_bootkit.py
+
+🎯 PhoenixGuard Bootkit Detection Results
+==================================================
+⏰ Scan Time: 2025-08-24T23:03:56.537721
+⚠️  Risk Level: CLEAN
+🎯 Action: CONTINUE
+
+✅ System appears clean
+
+📊 Scan complete! Check bootkit_scan_results.json for detailed results.
+💿 LEVEL 2: ESP Nuclear Boot ISO deployment
+Building Nuclear Boot recovery ISO...
+💿 Building PhoenixGuard Nuclear Boot recovery CD...
+🔍 Checking build requirements...
+📏 Creating Nuclear Boot CD workspace...
+🔑 Preparing signed UEFI bootloader...
+🐧 Preparing Linux kernel and recovery tools...
+cp: cannot open '/boot/vmlinuz-6.14.0-28-generic' for reading: Permission denied
+Kernel copy failed
+🔧 Adding recovery scripts and tools...
+💾 Creating bootable ISO image...
+grub-mkrescue: error: cannot open `/usr/lib/grub/x86_64-efi/biosdisk.mod': No such file or directory.
+GRUB rescue failed, trying xorriso directly...
+xorriso 1.5.6 : RockRidge filesystem manipulator, libburnia project.
+
+Drive current: -outdev 'stdio:PhoenixGuard-Nuclear-Recovery.iso'
+Media current: stdio file, overwriteable
+Media status : is blank
+Media summary: 0 sessions, 0 data blocks, 0 data, 5581m free
+xorriso : WARNING : -volid text problematic as automatic mount point name
+xorriso : WARNING : -volid text does not comply to ISO 9660 / ECMA 119 rules
+Added to ISO image: directory '/'='/home/punk/Projects/edk2-bootkit-defense/PhoenixGuard/nuclear-cd-build'
+xorriso : UPDATE :      46 files added in 1 seconds
+xorriso : FAILURE : Cannot find in ISO image: -boot_image ... bin_path='/isolinux/isolinux.bin'
+xorriso : UPDATE :      46 files added in 1 seconds
+xorriso : aborting : -abort_on 'FAILURE' encountered 'FAILURE'
+make: *** [Makefile:528: build-nuclear-cd] Error 5
+Using existing PhoenixGuard-Nuclear-Recovery.iso (271MB)
+⚡ Deploying Nuclear Boot ISO to ESP as virtual CD...
+🔍 Detecting ESP mount point...
+  Using ESP: /boot/efi
+📏 Creating recovery directory...
+💾 Copying ISO to ESP (virtual CD burn)...
+🔑 Setting up GRUB loopback entry...
+#!/bin/sh
+exec tail -n +3 $0
+# PhoenixGuard Nuclear Boot Recovery (Virtual CD)
+menuentry 'PhoenixGuard Nuclear Boot Recovery (Virtual CD)' {
+    insmod loopback
+    insmod iso9660
+    set isofile='/recovery/PhoenixGuard-Nuclear-Recovery.iso'
+    loopback loop $isofile
+    linux (loop)/vmlinuz boot=live toram
+    initrd (loop)/initrd.img
+}
+🔄 Updating GRUB configuration...
+Sourcing file `/etc/default/grub'
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-6.14.0-28-generic
+Found initrd image: /boot/initrd.img-6.14.0-28-generic
+Found linux image: /boot/vmlinuz-6.14.0-27-generic
+Found initrd image: /boot/initrd.img-6.14.0-27-generic
+Found memtest86+ 64bit EFI image: /boot/memtest86+x64.efi
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+Adding boot menu entry for UEFI Firmware Settings ...
+done
+
+✅ Nuclear Boot ISO deployed to ESP successfully!
+💿 Virtual CD location: /boot/efi/recovery/PhoenixGuard-Nuclear-Recovery.iso
+🔒 ISO format provides read-only protection against modification
+🎯 Size: 260M
+
+🚀 To use: Reboot and select 'PhoenixGuard Nuclear Boot Recovery (Virtual CD)' from GRUB menu
+📋 Alternative: Run 'make boot-from-esp-iso' to boot immediately
+GRUB entry added successfully
+🔐 LEVEL 3: Double-kexec secure firmware access (dry-run)
+Level 3 script available - skipping dangerous kexec operation for safety
+🚀 REAL HARDWARE TESTING: make phoenix
+📊 Creating fake CRITICAL risk scenario to test full escalation
+🚨 TESTING CRITICAL RISK ESCALATION:
+⚠️  Note: Some operations require root privileges.
+   PhoenixGuard will prompt for sudo when needed.
+
+🔥 PHOENIXGUARD - Progressive Bootkit Defense & Recovery
+========================================================
+🎯 Intelligent escalation from safest to most extreme recovery methods
+
+🎯 PhoenixGuard will try each recovery method in order of safety:
+   Each level requires your confirmation before proceeding.
+   You can stop at any level or let it escalate to success.
+
+
+============================================================
+🔍 DETECT LEVEL 1: SOFTWARE SCANNING (SAFEST)
+============================================================
+🔍 LEVEL 1: DETECT - Software-based bootkit scanning
+==================================================
+This performs comprehensive bootkit detection with zero system changes.
+✅ Safe: No modifications to system
+✅ Fast: Usually completes in under 2 minutes
+✅ Comprehensive: Scans firmware, NVRAM, bootloaders
+
+🎯 Proceed to scan for bootkit infections? [y/N]: 🔧 Running bootkit detection scan
+
+📊 Scan Results: Risk Level = CLEAN
+✅ System appears clean! No further escalation needed.
+🎯 Recommendation: Continue normal operations with periodic scans.
+
+✅ Level 1 completed successfully!
+🎯 PhoenixGuard recovery workflow complete.
+
+📋 Recommended next steps:
+  1. Verify system integrity with additional scans
+  2. Monitor system behavior for anomalies
+  3. Consider upgrading to hardware-based protection
+💿 TESTING NUCLEAR BOOT CD ON REAL HARDWARE
+🧪 Testing Nuclear Boot CD in QEMU...
+🚀 Launching QEMU with Nuclear Boot CD...
+Press Ctrl+Alt+G to release mouse, Ctrl+Alt+Q to quit QEMU
+

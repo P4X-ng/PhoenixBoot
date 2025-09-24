@@ -1,0 +1,101 @@
+{
+  "hardware_id": "ROG Strix G16 G615LP",
+  "analysis_timestamp": "2025-01-23T02:49:00Z",
+  "variable_analysis": {
+    "AsusGnvsVariable": {
+      "size": 8,
+      "hex_data": "1860786100000000",
+      "interpretation": "acpi_global_nvs",
+      "possible_values": [
+        "ACPI Value: 0x61786018",
+        "64-bit value: 1635278872 (0x0000000061786018)"
+      ],
+      "structure": null
+    },
+    "MyasusAutoInstall": {
+      "size": 1,
+      "hex_data": "00",
+      "interpretation": "myasus_integration",
+      "possible_values": [
+        "MyASUS Auto Install: Disabled",
+        "Disabled/False/Zero"
+      ],
+      "structure": null
+    },
+    "AsusGpnvVersion": {
+      "size": 2,
+      "hex_data": "0100",
+      "interpretation": "version_info",
+      "possible_values": [
+        "Version: 1.0",
+        "16-bit value: 1 (0x0001)"
+      ],
+      "structure": null
+    },
+    "AsusAnimationSetupConfig": {
+      "size": 3,
+      "hex_data": "000100",
+      "interpretation": "animation_config",
+      "possible_values": [
+        "Animations: Disabled"
+      ],
+      "structure": null
+    },
+    "AsusCameraHashValueUpdate": {
+      "size": 32,
+      "hex_data": "37f9dd4188408dabda4f74cb67ce352edf261f487f847e8903b1244813d18f80",
+      "interpretation": "camera_security",
+      "possible_values": [
+        "Camera Hash: 37f9dd4188408dab..."
+      ],
+      "structure": null
+    },
+    "PreviousAsusTouchPadDevice": {
+      "size": 9,
+      "hex_data": "000828190201050000",
+      "interpretation": "touchpad_device",
+      "possible_values": [
+        "Touchpad ID: 000828190201050000"
+      ],
+      "structure": null
+    },
+    "PreviousAsusCameraDevice": {
+      "size": 20,
+      "hex_data": "7e2b11c788408dabda4f74cb67ce352ecce9774b",
+      "interpretation": "camera_security",
+      "possible_values": [],
+      "structure": null
+    },
+    "AsusManufactureVersion": {
+      "size": 2,
+      "hex_data": "0100",
+      "interpretation": "version_info",
+      "possible_values": [
+        "Version: 1.0",
+        "16-bit value: 1 (0x0001)"
+      ],
+      "structure": null
+    },
+    "ArmouryCrateStaticField": {
+      "size": 256,
+      "hex_data": "41435346e90700000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "interpretation": "armoury_crate_config",
+      "possible_values": [
+        "Config Size: 256 bytes",
+        "Complex configuration blob"
+      ],
+      "structure": null
+    },
+    "CloudRecoverySupport": {
+      "size": 1,
+      "hex_data": "01",
+      "interpretation": "cloud_recovery",
+      "possible_values": [
+        "Cloud Recovery: Supported",
+        "Enabled/True/One"
+      ],
+      "structure": null
+    }
+  },
+  "recommendations": "See generate_config_recommendations output"
+}

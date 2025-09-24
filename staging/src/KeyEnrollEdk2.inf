@@ -1,0 +1,41 @@
+## @file
+#  PhoenixGuard Key Enroller EDK2 Application
+#
+#  Enrolls PK/KEK/db from AUTH files under \EFI\PhoenixGuard\keys
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010006
+  BASE_NAME                      = KeyEnrollEdk2
+  FILE_GUID                      = 9d0a18b1-2a81-4c38-9c58-71ee7f2f0a1d
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UefiMain
+
+[Sources]
+  KeyEnrollEdk2.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  DebugLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  PrintLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiLoadedImageProtocolGuid
+
+[Guids]
+  gEfiFileInfoGuid
+  gEfiGlobalVariableGuid
+

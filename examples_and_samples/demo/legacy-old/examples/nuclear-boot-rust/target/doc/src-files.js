@@ -1,0 +1,2 @@
+createSrcSidebar('[["bit_field",["",[],["lib.rs"]]],["bitflags",["",[],["external.rs","internal.rs","iter.rs","lib.rs","parser.rs","public.rs","traits.rs"]]],["bootloader_api",["",[],["config.rs","info.rs","lib.rs"]]],["rustversion",["",[],["attr.rs","bound.rs","constfn.rs","date.rs","error.rs","expand.rs","expr.rs","iter.rs","lib.rs","release.rs","time.rs","token.rs","version.rs"]]],["scopeguard",["",[],["lib.rs"]]],["volatile",["",[],["access.rs","lib.rs"]]]]');
+//{"start":19,"fragment_lengths":[32,106,60,169,34,44]}

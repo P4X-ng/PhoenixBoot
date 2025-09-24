@@ -1,0 +1,76 @@
+# PhoenixGuard GRUB configuration (template)
+# This file is rendered by scripts to produce grub.cfg without Bash expanding GRUB variables.
+
+set timeout=5
+set default=0
+
+insmod efi_gop
+insmod efi_uga
+insmod font
+insmod part_gpt
+insmod fat
+insmod normal
+insmod iso9660
+insmod loopback
+
+if loadfont unicode; then
+  set gfxmode=auto
+  set gfxpayload=keep
+  terminal_output gfxterm
+fi
+
+# Load user overrides if present
+if [ -f /EFI/PhoenixGuard/user.cfg ]; then
+  configfile /EFI/PhoenixGuard/user.cfg
+fi
+
+menuentry "PhoenixGuard [UUID: @@BUILD_UUID@@]: Return to Nuclear Boot" {
+  chainloader /EFI/PhoenixGuard/BootX64.efi
+}
+
+# IF_HAS_ISO_START
+menuentry "Boot ISO: @@ISO_BASENAME@@ (loopback)" {
+  set isofile="/ISO/@@ISO_BASENAME@@"
+  if [ -f (hd0)$isofile ]; then
+    set espdev="(hd0)"
+  elif [ -f (hd0,msdos1)$isofile ]; then
+    set espdev="(hd0,msdos1)"
+  elif [ -f (hd0,gpt1)$isofile ]; then
+    set espdev="(hd0,gpt1)"
+  else
+    echo "ISO not found: $isofile"
+    sleep 2
+    return
+  fi
+  loopback loop ${espdev}$isofile
+  if [ -f (loop)/casper/vmlinuz ]; then
+    linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=$isofile quiet splash --- @@ISO_EXTRA_ARGS@@
+    if [ -f (loop)/casper/initrd ]; then
+      initrd (loop)/casper/initrd
+    fi
+    boot
+  elif [ -f (loop)/live/vmlinuz ]; then
+    linux (loop)/live/vmlinuz boot=live iso-scan/filename=$isofile quiet splash --- @@ISO_EXTRA_ARGS@@
+    if [ -f (loop)/live/initrd.img ]; then
+      initrd (loop)/live/initrd.img
+    fi
+    boot
+  elif [ -f (loop)/boot/vmlinuz ]; then
+    linux (loop)/boot/vmlinuz iso-scan/filename=$isofile quiet splash --- @@ISO_EXTRA_ARGS@@
+    if [ -f (loop)/boot/initrd ]; then
+      initrd (loop)/boot/initrd
+    fi
+    boot
+  else
+    echo "No known kernel found inside ISO"
+  fi
+}
+# IF_HAS_ISO_END
+
+menuentry "UEFI Firmware Settings" {
+  fwsetup
+}
+menuentry "Reboot" {
+  reboot
+}
+

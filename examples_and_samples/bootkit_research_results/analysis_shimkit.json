@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-23T05:11:47.293295",
+  "sample_path": "bootkit_samples/shimkit.bin",
+  "file_info": {
+    "size": 966664,
+    "modified": "2025-08-23T05:11:33.117837",
+    "md5": "fad62cda34e7bb2f9b7756f7ba3260d4",
+    "sha256": "b10c54d8520c32d0927bfcc5ef2ec4b0a41e0e95fcb84410f2121053811d9c8c"
+  },
+  "signatures": [
+    {
+      "name": "EFI Variable Manipulation",
+      "confidence": "medium"
+    }
+  ],
+  "suspicious_strings": [
+    "debug_hook",
+    "num_disable",
+    "unhook_system_services",
+    "hook_system_services",
+    "CreateTimeBasedPayload",
+    "unhook_exit",
+    "hook_exit",
+    "sbat_var_payload_header"
+  ],
+  "entropy_analysis": {
+    "entropy": 5.84149678561785,
+    "max_entropy": 8.0,
+    "normalized": 0.7301870982022313,
+    "assessment": "medium"
+  },
+  "pe_analysis": {}
+}

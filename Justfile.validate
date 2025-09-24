@@ -1,0 +1,74 @@
+# PhoenixGuard Validation Workflows
+
+# Import shared variables
+import './Justfile.vars'
+
+
+# Show validate module help
+help:
+	@echo "✅ PhoenixGuard Validation Module"
+	@echo "=================================="
+	@echo ""
+	@echo "Available commands:"
+	@echo "  just validate validate-all      # Run all validations"
+	@echo "  just validate validate-esp      # Validate ESP contents"
+	@echo "  just validate validate-keys     # Validate Secure Boot AUTH blobs"
+	@echo "  just validate verify-esp-robust # Robust ESP verification"
+	@echo "  just validate verify-sb         # Secure Boot verification report"
+	@echo "  just validate baseline-verify   # Baseline firmware verification"
+	@echo "  just validate organize-media    # Organize USB media with validation"
+	@echo ""
+
+# Aggregate validation
+validate-all: validate-keys validate-esp
+	@echo "✅ Validation checks completed"
+
+# Validate ESP contents (no sudo)
+validate-esp:
+	@bash scripts/validate-esp.sh
+
+# Validate Secure Boot AUTH blobs presence
+validate-keys:
+	@bash scripts/validate-keys.sh
+
+# Robust ESP verification (includes ISO and GRUB menu)
+verify-esp-robust:
+	@bash scripts/verify-esp-robust.sh
+
+# Secure Boot verification report
+verify-sb:
+	@bash scripts/verify-sb.sh
+
+# UUEFI report (read-only)
+uuefi-report:
+	@bash scripts/uuefi-report.sh
+
+# UUEFI apply (set BootNext; optionally create entry)
+uuefi-apply:
+	@bash scripts/uuefi-apply.sh
+
+# Install UUEFI.efi to system ESP
+uuefi-install:
+	@bash scripts/uuefi-install.sh
+
+# Baseline verification (verify-only)
+baseline-verify:
+	@bash scripts/baseline-verify.sh
+
+# Ensure ESP image has shim as BOOTX64
+valid-esp-secure:
+	@bash scripts/esp-normalize-secure.sh
+
+# Add Allowed.manifest.sha256 into ESP
+esp-add-allowed-hashes:
+	@bash scripts/esp-add-allowed-hashes.sh
+
+# Organize a PhoenixGuard USB
+organize-usb1:
+	@bash scripts/organize-usb1.sh
+
+# Wrapper: verify ESP, add allowed hashes, and organize USB
+organize-media:
+	@just validate verify-esp-robust
+	@just validate esp-add-allowed-hashes
+	@if [ -n "${USB1_DEV:-}" ]; then just validate organize-usb1; else echo "ℹ️  USB1_DEV not set; skipped USB organization."; fi

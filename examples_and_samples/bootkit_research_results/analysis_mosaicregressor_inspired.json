@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-08-23T05:32:41.826453",
+  "sample_path": "realistic_bootkit_samples/mosaicregressor_inspired.bin",
+  "file_info": {
+    "size": 1528,
+    "modified": "2025-08-23T05:32:30.709777",
+    "md5": "a63b9f90d66214304dfd8845805e045e",
+    "sha256": "b34b60126302be76eac097e93b800ac66b964ff420307f2e159dafb71aabe6ce"
+  },
+  "signatures": [
+    {
+      "name": "MosaicRegressor",
+      "offset": 182,
+      "confidence": "high"
+    }
+  ],
+  "suspicious_strings": [
+    "            call decrypt_payload"
+  ],
+  "entropy_analysis": {
+    "entropy": 6.123723509944325,
+    "max_entropy": 8.0,
+    "normalized": 0.7654654387430406,
+    "assessment": "medium"
+  },
+  "pe_analysis": {}
+}

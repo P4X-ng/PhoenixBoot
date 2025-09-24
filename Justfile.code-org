@@ -1,0 +1,56 @@
+# PhoenixGuard Code Organization
+
+# Import shared variables
+import './Justfile.vars'
+
+
+# Show code organization module help
+help:
+	@echo "📁 PhoenixGuard Code Organization Module"
+	@echo "=========================================="
+	@echo ""
+	@echo "Available commands:"
+	@echo "  just code-org audit-tree        # Audit repository structure"
+	@echo "  just code-org init-structure    # Create production directories"
+	@echo "  just code-org move-prod-staging # Move production code to staging/"
+	@echo "  just code-org move-boot-dev     # Move hardware boot code to dev/"
+	@echo "  just code-org move-wip          # Move WIP code to wip/"
+	@echo "  just code-org move-demo         # Move demo code to demo/"
+	@echo "  just code-org purge-demo-refs   # Remove demo references from build"
+	@echo ""
+
+# Audit repository and categorize code
+audit-tree:
+	@echo "🔍 Auditing PhoenixGuard repository structure..."
+	@mkdir -p {{OUT_DIR}}/audit
+	@bash scripts/audit-tree.sh
+
+# Create production directory structure
+init-structure:
+	@echo "📁 Creating PhoenixGuard production directory structure..."
+	@bash scripts/init-structure.sh
+
+# Move production-ready code to staging/
+move-prod-staging:
+	@echo "📦 Moving production code to staging/..."
+	@bash scripts/move-prod-staging.sh
+
+# Move hardware boot development code to dev/
+move-boot-dev:
+	@echo "🔧 Moving hardware boot development code to dev/..."
+	@bash scripts/move-boot-dev.sh
+
+# Move WIP implementations to wip/
+move-wip:
+	@echo "🚧 Moving work-in-progress implementations to wip/..."
+	@bash scripts/move-wip.sh
+
+# Move all demo code to demo/
+move-demo:
+	@echo "🎭 Moving demo code to demo/..."
+	@bash scripts/move-demo.sh
+
+# Remove demo references from build system
+purge-demo-refs:
+	@echo "🧹 Purging demo references from production build system..."
+	@bash scripts/purge-demo-refs.sh

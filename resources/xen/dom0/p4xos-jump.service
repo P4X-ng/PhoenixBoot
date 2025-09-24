@@ -1,0 +1,12 @@
+[Unit]
+Description=P4XOS Snapshot Jump - domU restore
+After=network.target local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/p4xos-jump.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
+

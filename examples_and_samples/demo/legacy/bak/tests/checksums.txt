@@ -1,0 +1,9 @@
+🔥 PhoenixGuard Hardware Testing Artifact Verification
+Generated: 2025-08-24T23:02:31Z
+
+🔍 Verifying Critical Artifacts:
+0d80fa46c1117fb29a1a112368265513c31b8c73deb126d5c81abb3976c42ad1  NuclearBootEdk2.efi
+7ba78c78a5977f31c3186309467c5f034dedc09760d9477c5c6009d9321ead60  PhoenixGuard-Nuclear-Recovery.iso
+2bc2604c979c52a33bcd8a090addc29c71b06c4c6d705bf6c39bab43827918d7  KeyEnrollEdk2.efi
+85b31e2841f50aeb87c70214eabf0036d07d84479a6977be684a3ad902a6f0f1  drivers/G615LPAS.325
+SecureBoot enabled

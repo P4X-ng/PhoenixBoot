@@ -1,0 +1,16 @@
+[2J[01;01H[=3h[2J[01;01H[2J[01;01H[=3h[2J[01;01H[2J[01;01H[=3h[2J[01;01HBdsDxe: loading Boot0001 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+BdsDxe: starting Boot0001 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+[2J[01;01H[=3h[2J[01;01H[2J[01;01H
+í ¾í¶€í ½í´¥ PhoenixGuard Nuclear Boot 1.0.0 í ½í´¥í ¾í¶€
+===============================================
+Memory-safe, network-based bootkit defense
+NO TFTP! NO PXE! NO COMPROMISE!
+Build UUID: 4170caf4-0871-416a-1663-6ec98828a867
+
+
+[PG] SECUREBOOT=? (error)
+[PG-ATTEST=FAIL]
+[PG-BOOT=FAIL] Runtime image hash mismatch
+BdsDxe: failed to start Boot0001 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0): Security Violation
+
+>>Start PXE over IPv4.

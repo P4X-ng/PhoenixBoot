@@ -1,0 +1,163 @@
+version: '3.8'
+
+services:
+  # PhoenixGuard FastAPI Application
+  phoenixguard-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phoenixguard-api
+    ports:
+      - "8001:8001"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+      - PHOENIX_ENV=production
+      - LOG_LEVEL=info
+    depends_on:
+      - redis
+    volumes:
+      - ./logs:/app/logs
+      - /var/run/docker.sock:/var/run/docker.sock  # For container tasks
+    networks:
+      - phoenixguard-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/api/phoenixguard/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for task queues and session management
+  redis:
+    image: redis:7-alpine
+    container_name: phoenixguard-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - phoenixguard-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Celery worker for background tasks
+  phoenixguard-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phoenixguard-worker
+    command: celery -A cooperative_phoenixguard.celery_app worker --loglevel=info --concurrency=4
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+      - PHOENIX_ENV=production
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+    volumes:
+      - ./logs:/app/logs
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - phoenixguard-net
+    restart: unless-stopped
+    scale: 2  # Run 2 worker instances
+
+  # Celery beat scheduler for periodic tasks
+  phoenixguard-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phoenixguard-scheduler
+    command: celery -A cooperative_phoenixguard.celery_app beat --loglevel=info
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+      - PHOENIX_ENV=production
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - phoenixguard-net
+    restart: unless-stopped
+
+  # Nginx reverse proxy (optional, for production)
+  nginx:
+    image: nginx:alpine
+    container_name: phoenixguard-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - phoenixguard-api
+    networks:
+      - phoenixguard-net
+    restart: unless-stopped
+    profiles: ["production"]
+
+  # Prometheus monitoring (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: phoenixguard-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    networks:
+      - phoenixguard-net
+    restart: unless-stopped
+    profiles: ["monitoring"]
+
+  # Grafana for metrics visualization (optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: phoenixguard-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=phoenixguard123
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - phoenixguard-net
+    restart: unless-stopped
+    profiles: ["monitoring"]
+
+volumes:
+  redis-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+networks:
+  phoenixguard-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

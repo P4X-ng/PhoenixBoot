@@ -1,0 +1,94 @@
+{
+  "simulation_timestamp": "2025-08-23T05:13:47.116472",
+  "scenarios": [
+    {
+      "name": "persistence_bootkit",
+      "description": "Bootkit that establishes persistence via ESP modification",
+      "timestamp": "2025-08-23T05:13:47.204170",
+      "actions": [
+        {
+          "action": "create_malicious_bootloader",
+          "file": "/boot/efi/EFI/ubuntu/grubx64_malicious.efi",
+          "size": 2662313,
+          "payload_size": 2081
+        },
+        {
+          "action": "create_persistence_config",
+          "directory": "/boot/efi/EFI/.hidden_bootkit"
+        },
+        {
+          "action": "simulate_boot_order_modification",
+          "description": "Would modify BootOrder EFI variable to prioritize malicious loader"
+        }
+      ],
+      "detection_expected": true
+    },
+    {
+      "name": "stealth_bootkit",
+      "description": "Bootkit that uses legitimate-looking names and signatures",
+      "timestamp": "2025-08-23T05:13:47.208206",
+      "actions": [
+        {
+          "action": "create_stealth_file",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Microsoft_Boot_Manager.efi",
+          "size": 522,
+          "description": "Fake Microsoft component"
+        },
+        {
+          "action": "create_stealth_file",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Windows_Boot_Loader.efi",
+          "size": 517,
+          "description": "Fake Windows loader"
+        },
+        {
+          "action": "create_stealth_file",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Secure_Boot_Helper.efi",
+          "size": 521,
+          "description": "Fake security component"
+        },
+        {
+          "action": "create_stealth_file",
+          "file": "/boot/efi/EFI/Microsoft/Boot/UEFI_Firmware_Update.efi",
+          "size": 518,
+          "description": "Fake firmware update"
+        },
+        {
+          "action": "create_fake_certificate",
+          "certificate": {
+            "issuer": "Microsoft Corporation",
+            "subject": "Microsoft Windows UEFI Driver Publisher",
+            "valid_from": "2023-01-01",
+            "valid_to": "2030-01-01",
+            "fingerprint": "7cc21d75684d519d99fbe1d75d3158a7f969c3ad00620ec6e09d35fbb4cf7039",
+            "note": "This is a fake certificate for testing purposes"
+          }
+        }
+      ],
+      "detection_expected": true
+    },
+    {
+      "name": "multi_stage_bootkit",
+      "description": "Bootkit that deploys in multiple stages to evade detection",
+      "timestamp": "2025-08-23T05:13:47.208381",
+      "actions": [
+        {
+          "action": "deploy_stage1_dropper",
+          "stage": 1,
+          "file": "/boot/efi/EFI/temp/stage1.bin"
+        },
+        {
+          "action": "deploy_stage2_payload",
+          "stage": 2,
+          "file": "/boot/efi/EFI/temp/stage2.bin"
+        },
+        {
+          "action": "deploy_stage3_infection",
+          "stage": 3,
+          "file": "/boot/efi/EFI/temp/stage3.bin"
+        }
+      ],
+      "stages": [
+        {
+          "stage": 1,
+          "type": "dropper",
+          "payload": 

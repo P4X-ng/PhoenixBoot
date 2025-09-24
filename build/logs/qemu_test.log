@@ -1,0 +1,4 @@
+🚀 Running production QEMU boot test...
+🚀 Using OVMF: /usr/share/OVMF/OVMF_CODE_4M.fd
+qemu-system-x86_64: terminating on signal 15 from pid 3787243 (timeout)
+✅ QEMU boot test PASSED

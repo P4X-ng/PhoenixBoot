@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# PhoenixGuard Boot - User-friendly launcher
+# Run this from ANYWHERE - it handles paths correctly
+
+# Find the PhoenixGuard directory
+if [ -f "Justfile" ] && [ -d "scripts" ]; then
+    PHOENIX_ROOT="$(pwd)"
+elif [ -f "$HOME/Projects/edk2-bootkit-defense/PhoenixGuard/Justfile" ]; then
+    PHOENIX_ROOT="$HOME/Projects/edk2-bootkit-defense/PhoenixGuard"
+else
+    echo "❌ Cannot find PhoenixGuard installation!"
+    echo "Please run from PhoenixGuard directory or set PHOENIX_ROOT"
+    exit 1
+fi
+
+cd "$PHOENIX_ROOT"
+echo "🔥 PhoenixGuard Boot System"
+echo "Working from: $PHOENIX_ROOT"
+echo ""
+
+case "${1:-help}" in
+    build)
+        echo "🔨 Building boot system..."
+        just build
+        ;;
+    
+    usb)
+        if [ -z "$2" ]; then
+            echo "Usage: $0 usb /dev/sdX"
+            echo "Available devices:"
+            lsblk -d -o NAME,SIZE,MODEL | grep -E "^sd|^nvme"
+            exit 1
+        fi
+        echo "📝 Writing to USB: $2"
+        echo "⚠️  This will ERASE $2! Press Ctrl+C to cancel, Enter to continue"
+        read
+        sudo dd if=build/esp/esp.img of="$2" bs=4M status=progress
+        sync
+        echo "✅ USB ready!"
+        ;;
+    
+    test)
+        echo "🧪 Testing in QEMU..."
+        just test-qemu
+        ;;
+    
+    fix)
+        echo "🔧 Running all fixes..."
+        bash scripts/fix-boot-issues.sh
+        ;;
+    
+    status)
+        echo "📊 System Status:"
+        echo -n "  ESP Image: "
+        if [ -f "build/esp/esp.img" ]; then
+            du -h build/esp/esp.img | cut -f1
+        else
+            echo "Not built"
+        fi
+        echo -n "  Boot EFI: "
+        [ -f "out/staging/BootX64.efi" ] && echo "Ready" || echo "Not built"
+        echo -n "  Keys: "
+        [ -f "keys/PK.crt" ] && echo "Generated" || echo "Not generated"
+        ;;
+    
+    *)
+        echo "Usage: $0 {build|usb|test|fix|status}"
+        echo ""
+        echo "  build  - Build the boot system"
+        echo "  usb    - Write to USB device"
+        echo "  test   - Test in QEMU"
+        echo "  fix    - Fix all known issues"
+        echo "  status - Show system status"
+        ;;
+esac

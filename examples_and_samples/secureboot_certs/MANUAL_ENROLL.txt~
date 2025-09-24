@@ -1,0 +1,12 @@
+Manual Secure Boot Key Enrollment Instructions:
+=============================================
+
+1. Copy user_secureboot.cer to a USB drive
+2. Boot into UEFI Setup (usually F2, F12, or Del during boot)
+3. Navigate to Security -> Secure Boot Configuration
+4. Choose "Enroll Key" or "Custom Keys"
+5. Select "Enroll from File" and browse to user_secureboot.cer
+6. Add as Platform Key (PK) or Database Key (db) as appropriate
+7. Save and exit UEFI setup
+
+Alternatively, use the KeyEnrollEdk2.efi tool from the boot menu.

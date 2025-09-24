@@ -1,0 +1,991 @@
+{
+  "hardware_profile": {
+    "timestamp": "2025-08-23T02:49:12.688281",
+    "hardware_id": "ROG Strix G16 G615LP_G615LP_G615LP",
+    "variables": {},
+    "categories": {
+      "vendor_specific": 108,
+      "thermal_power": 1,
+      "setup_config": 6,
+      "asus_specific": 8,
+      "boot_config": 7,
+      "performance": 4
+    },
+    "vendor_specific": {},
+    "critical_config": [
+      {
+        "name": "Boot0004-8be4df61-93ca-11d2-aa0d",
+        "purpose": "Boot order and configuration",
+        "critical_level": "HIGH"
+      },
+      {
+        "name": "Boot0000-8be4df61-93ca-11d2-aa0d",
+        "purpose": "Boot order and configuration",
+        "critical_level": "HIGH"
+      },
+      {
+        "name": "Boot0009-8be4df61-93ca-11d2-aa0d",
+        "purpose": "Boot order and configuration",
+        "critical_level": "HIGH"
+      },
+      {
+        "name": "Boot0008-8be4df61-93ca-11d2-aa0d",
+        "purpose": "Boot order and configuration",
+        "critical_level": "HIGH"
+      },
+      {
+        "name": "Boot0003-8be4df61-93ca-11d2-aa0d",
+        "purpose": "Boot order and configuration",
+        "critical_level": "HIGH"
+      },
+      {
+        "name": "Boot0002-8be4df61-93ca-11d2-aa0d",
+        "purpose": "Boot order and configuration",
+        "critical_level": "HIGH"
+      },
+      {
+        "name": "Boot0001-8be4df61-93ca-11d2-aa0d",
+        "purpose": "Boot order and configuration",
+        "critical_level": "HIGH"
+      },
+      {
+        "name": "AsusGnvsVariable-d763220a-8214-4f10-8658",
+        "purpose": "Global NVS (ACPI variables)",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "MyasusAutoInstall-607005d5-3f75-4b2e-98f0",
+        "purpose": "Unknown - analysis needed",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "AsusGpnvVersion-607005d5-3f75-4b2e-98f0",
+        "purpose": "Version information",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "AsusAnimationSetupConfig-607005d5-3f75-4b2e-98f0",
+        "purpose": "BIOS UI animations/graphics",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "AsusCameraHashValueUpdate-0e0bd45b-349a-4e49-a402",
+        "purpose": "Camera/webcam configuration",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "PreviousAsusTouchPadDevice-607005d5-3f75-4b2e-98f0",
+        "purpose": "Unknown - analysis needed",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "PreviousAsusCameraDevice-607005d5-3f75-4b2e-98f0",
+        "purpose": "Camera/webcam configuration",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "AsusManufactureVersion-607005d5-3f75-4b2e-98f0",
+        "purpose": "Version information",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "AsForceMemoryRetrain-607005d5-3f75-4b2e-98f0",
+        "purpose": "CPU/Memory performance settings",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "OfflineMemoryDumpUseCapability-77fa9abd-0359-4d32-bd60",
+        "purpose": "CPU/Memory performance settings",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "MemoryOverwriteRequestControl-e20939be-32d4-41be-a150",
+        "purpose": "CPU/Memory performance settings",
+        "critical_level": "MEDIUM"
+      },
+      {
+        "name": "MemoryOverwriteRequestControlLock-bb983ccf-151d-40e1-a07b",
+        "purpose": "CPU/Memory performance settings",
+        "critical_level": "MEDIUM"
+      }
+    ],
+    "total_variables": 134
+  },
+  "universal_config_template": {
+    "hardware_id": "ROG Strix G16 G615LP_G615LP_G615LP",
+    "config_version": "1.0",
+    "generated": "2025-08-23T02:49:14.768374",
+    "boot_config": {
+      "default_boot_order": [
+        "Boot0000",
+        "Boot0001",
+        "Boot0002"
+      ],
+      "boot_timeout": 5,
+      "secure_boot": true
+    },
+    "asus_specific": {
+      "AsusGnvsVariable-d763220a-8214-4f10-8658": {
+        "guid": "de40ef1769e1",
+        "size": 12,
+        "purpose": "Global NVS (ACPI variables)",
+        "default_value": "NEEDS_DISCOVERY"
+      },
+      "MyasusAutoInstall-607005d5-3f75-4b2e-98f0": {
+        "guid": "85ba66797a3e",
+        "size": 5,
+        "purpose": "Unknown - analysis needed",
+        "default_value": "NEEDS_DISCOVERY"
+      },
+      "AsusGpnvVersion-607005d5-3f75-4b2e-98f0": {
+        "guid": "85ba66797a3e",
+        "size": 6,
+        "purpose": "Version information",
+        "default_value": "NEEDS_DISCOVERY"
+      },
+      "AsusAnimationSetupConfig-607005d5-3f75-4b2e-98f0": {
+        "guid": "85ba66797a3e",
+        "size": 7,
+        "purpose": "BIOS UI animations/graphics",
+        "default_value": "NEEDS_DISCOVERY"
+      },
+      "AsusCameraHashValueUpdate-0e0bd45b-349a-4e49-a402": {
+        "guid": "d4b8819c7d10",
+        "size": 36,
+        "purpose": "Camera/webcam configuration",
+        "default_value": "NEEDS_DISCOVERY"
+      },
+      "PreviousAsusTouchPadDevice-607005d5-3f75-4b2e-98f0": {
+        "guid": "85ba66797a3e",
+        "size": 13,
+        "purpose": "Unknown - analysis needed",
+        "default_value": "NEEDS_DISCOVERY"
+      },
+      "PreviousAsusCameraDevice-607005d5-3f75-4b2e-98f0": {
+        "guid": "85ba66797a3e",
+        "size": 24,
+        "purpose": "Camera/webcam configuration",
+        "default_value": "NEEDS_DISCOVERY"
+      },
+      "AsusManufactureVersion-607005d5-3f75-4b2e-98f0": {
+        "guid": "85ba66797a3e",
+        "size": 6,
+        "purpose": "Version information",
+        "default_value": "NEEDS_DISCOVERY"
+      }
+    },
+    "performance_config": {
+      "memory_training": "auto",
+      "cpu_overclocking": "disabled",
+      "power_profile": "balanced"
+    },
+    "all_variables": [
+      "MokListTrustedRT-605dab50-e046-4300-abb6",
+      "SbatLevelRT-605dab50-e046-4300-abb6",
+      "MokListXRT-605dab50-e046-4300-abb6",
+      "MokListRT-605dab50-e046-4300-abb6",
+      "HiiDB-1b838190-4625-4ead-abc9",
+      "PCIEPowerControl-7a09bc55-83e8-4d4d-93b0",
+      "BootCurrent-8be4df61-93ca-11d2-aa0d",
+      "PlatformLangCodes-8be4df61-93ca-11d2-aa0d",
+      "ErrOutDev-8be4df61-93ca-11d2-aa0d",
+      "BootOptionSupport-8be4df61-93ca-11d2-aa0d",
+      "ConInDev-8be4df61-93ca-11d2-aa0d",
+      "ConOutDev-8be4df61-93ca-11d2-aa0d",
+      "OsIndicationsSupported-8be4df61-93ca-11d2-aa0d",
+      "TbtSetupVolatileData-ec87d643-eba4-4bb5-a1e5",
+      "CpuSetupVolatileData-b08f97ff-e6e8-4193-a997",
+      "TpmServFlags-7d3dceee-cbce-4ea7-8709",
+      "AsusGnvsVariable-d763220a-8214-4f10-8658",
+      "PKDefault-8be4df61-93ca-11d2-aa0d",
+      "KEKDefault-8be4df61-93ca-11d2-aa0d",
+      "dbDefault-8be4df61-93ca-11d2-aa0d",
+      "dbtDefault-8be4df61-93ca-11d2-aa0d",
+      "dbxDefault-8be4df61-93ca-11d2-aa0d",
+      "MyasusAutoInstall-607005d5-3f75-4b2e-98f0",
+      "PlatformLangChange-d763220a-8214-4f10-8658",
+      "AsusGpnvVersion-607005d5-3f75-4b2e-98f0",
+      "BootMediaInfo-5bd6b672-b6ea-4d6a-b590",
+      "VendorKeys-8be4df61-93ca-11d2-aa0d",
+      "SignatureSupport-8be4df61-93ca-11d2-aa0d",
+      "SecureBoot-8be4df61-93ca-11d2-aa0d",
+      "AuthVarPreBootPhase-7b59104a-c00d-4158-87ff",
+      "SetupMode-8be4df61-93ca-11d2-aa0d",
+      "DeployedMode-8be4df61-93ca-11d2-aa0d",
+      "AuditMode-8be4df61-93ca-11d2-aa0d",
+      "PlatformLang-8be4df61-93ca-11d2-aa0d",
+      "Boot000F-8be4df61-93ca-11d2-aa0d",
+      "Boot000E-8be4df61-93ca-11d2-aa0d",
+      "Boot0004-8be4df61-93ca-11d2-aa0d",
+      "Boot0000-8be4df61-93ca-11d2-aa0d",
+      "Boot000D-8be4df61-93ca-11d2-aa0d",
+      "Boot000C-8be4df61-93ca-11d2-aa0d",
+      "Boot000B-8be4df61-93ca-11d2-aa0d",
+      "Boot000A-8be4df61-93ca-11d2-aa0d",
+      "Boot0009-8be4df61-93ca-11d2-aa0d",
+      "Boot0008-8be4df61-93ca-11d2-aa0d",
+      "Boot0003-8be4df61-93ca-11d2-aa0d",
+      "PK-8be4df61-93ca-11d2-aa0d",
+      "Timeout-8be4df61-93ca-11d2-aa0d",
+      "PBRDevicePath-a9b5f8d2-cb6d-42c2-bc01",
+      "BootOrder-8be4df61-93ca-11d2-aa0d",
+      "dbx-d719b2cb-3d3a-4596-a3bc",
+      "WIIM-beca2d18-062a-47bd-b998",
+      "Privacy_Policy-153c06e0-8bd0-4891-ba6a",
+      "OsIndications-8be4df61-93ca-11d2-aa0d",
+      "Boot0002-8be4df61-93ca-11d2-aa0d",
+      "Boot0001-8be4df61-93ca-11d2-aa0d",
+      "ErrOut-8be4df61-93ca-11d2-aa0d",
+      "ConIn-8be4df61-93ca-11d2-aa0d",
+      "ConOut-8be4df61-93ca-11d2-aa0d",
+      "isDiag-4bc1c9d1-93e5-4807-80f0",
+      "RemapportPathMapping-e5e0e2b2-5f15-4a5d-b208",
+      "OfflineUniqueIDEKPubCRC-eaec226f-c9a3-477a-a826",
+      "OfflineUniqueIDEKPub-eaec226f-c9a3-477a-a826",
+      "UnlockIDCopy-eaec226f-c9a3-477a-a826",
+      "DefaultBootOrder-45cf35f6-0d6e-4d04-856a",
+      "SIDSUPPORT-7d3dceee-cbce-4ea7-8709",
+      "WifiSetup-ec87d643-eba4-4bb5-a1e5",
+      "IntelVmdDeviceInfo-231f36e7-d660-4e44-ab23",
+      "IntelVmdOsVariableV2-d3f67d1d-f71f-4cae-812c",
+      "IntelRstFeatures-ca2fc9c8-71e7-4f72-b433",
+      "RealtekCountryCode-cc628489-a62f-44a3-9ca3",
+      "MotherBoardHealth-ea1fcaee-3a77-4bb8-9b98",
+      "RmtRun-89ed4fc1-4234-47bc-9081",
+      "AsusAnimationSetupConfig-607005d5-3f75-4b2e-98f0",
+      "TpvSetup-1c3483d5-1e7e-4450-9806",
+      "ArmouryCrateStaticField-607005d5-3f75-4b2e-98f0",
+      "CnvUefiWlanUATS-92daaf2f-c02b-455b-b2ec",
+      "UefiCnvCommonDSBR-e65d8884-d4af-4b20-8d03",
+      "UefiCnvWlanWBEM-92daaf2f-c02b-455b-b2ec",
+      "IntelUefiCnvBtPpagSupport-42780dd5-9a7d-404c-80e4",
+      "IntelUefiCnvBtBiQuadFilterBypass-42780dd5-9a7d-404c-80e4",
+      "UefiCnvWlanMPCC-92daaf2f-c02b-455b-b2ec",
+      "IntelUefiCnvWwanSkuSupport-e65d8884-d4af-4b20-8d03",
+      "UefiCnvWlanSarGeoOffsetMapping-92daaf2f-c02b-455b-b2ec",
+      "WCSC-92daaf2f-c02b-455b-b2ec",
+      "WPFC-92daaf2f-c02b-455b-b2ec",
+      "GPC-42780dd5-9a7d-404c-80e4",
+      "GPC-92daaf2f-c02b-455b-b2ec",
+      "SADS-42780dd5-9a7d-404c-80e4",
+      "SADS-92daaf2f-c02b-455b-b2ec",
+      "WGDS-92daaf2f-c02b-455b-b2ec",
+      "EWRD-92daaf2f-c02b-455b-b2ec",
+      "BRDS-42780dd5-9a7d-404c-80e4",
+      "WRDS-92daaf2f-c02b-455b-b2ec",
+      "WRDD-92daaf2f-c02b-455b-b2ec",
+      "WAND-92daaf2f-c02b-455b-b2ec",
+      "SPLC-92daaf2f-c02b-455b-b2ec",
+      "HwErrRecSupport-8be4df61-93ca-11d2-aa0d",
+      "CAL1-91b89306-5bac-4ae0-aab3",
+      "AMITCGPPIVAR-a8a2093b-fefa-43c1-8e62",
+      "TPMPERBIOSFLAGS-7d3dceee-cbce-4ea7-8709",
+      "InventecVariable-0f76aee3-473e-4188-ad41",
+      "AsForceMemoryRetrain-607005d5-3f75-4b2e-98f0",
+      "BiosGuardCapsuleVariable-368b3153-563d-4610-8d94",
+      "InitSetupVariable-ec87d643-eba4-4bb5-a1e5",
+      "TXT_WFT-d763220a-8214-4f10-8658",
+      "GNVSProtocolECAN-d763220a-8214-4f10-8658",
+      "GNVSProtocolPCAC-d763220a-8214-4f10-8658",
+      "MonotonicCounter-01368881-c4ad-4b1d-b631",
+      "OA30-91b89306-5bac-4ae0-aab3",
+      "MFG0-91b89306-5bac-4ae0-aab3",
+      "CNFG-91b89306-5bac-4ae0-aab3",
+      "db-d719b2cb-3d3a-4596-a3bc",
+      "OfflineMemoryDumpUseCapability-77fa9abd-0359-4d32-bd60",
+      "OemOSType-d06a0bc7-9feb-4cbb-bd78",
+      "BuiltAsSecuredCorePC-77fa9abd-0359-4d32-bd60",
+      "CALI_DATA-1f52d2a1-bb3a-457d-bc09",
+      "AsusCameraHashValueUpdate-0e0bd45b-349a-4e49-a402",
+      "Property1-71202eee-5f53-40d9-ab3d",
+      "CurrentPolicy-77fa9abd-0359-4d32-bd60",
+      "TcssTbtRetimer-8542c05d-78f1-4229-bf5c",
+      "PreviousAsusTouchPadDevice-607005d5-3f75-4b2e-98f0",
+      "PreviousAsusCameraDevice-607005d5-3f75-4b2e-98f0",
+      "MemoryOverwriteRequestControl-e20939be-32d4-41be-a150",
+      "MemoryOverwriteRequestControlLock-bb983ccf-151d-40e1-a07b",
+      "MaximumTableSize-4b3082a3-80c6-4d7e-9cd0",
+      "SmbiosScratchBuffer-4b3082a3-80c6-4d7e-9cd0",
+      "SmbiosV3EntryPointTable-4b3082a3-80c6-4d7e-9cd0",
+      "SmbiosEntryPointTableF000-4b3082a3-80c6-4d7e-9cd0",
+      "SmbiosEntryPointTable-4b3082a3-80c6-4d7e-9cd0",
+      "WriteOnceStatus-4b3082a3-80c6-4d7e-9cd0",
+      "GNVSProtocolDGPM-d763220a-8214-4f10-8658",
+      "CloudRecoverySupport-607005d5-3f75-4b2e-98f0",
+      "AsusManufactureVersion-607005d5-3f75-4b2e-98f0",
+      "DeploymentModeNv-97e8965f-c761-4f48-b6e4"
+    ]
+  },
+  "raw_variables": {
+    "MokListTrustedRT-605dab50-e046-4300-abb6": {
+      "guid": "3dd810dd8b23",
+      "size": 5,
+      "readable": true
+    },
+    "SbatLevelRT-605dab50-e046-4300-abb6": {
+      "guid": "3dd810dd8b23",
+      "size": 50,
+      "readable": true
+    },
+    "MokListXRT-605dab50-e046-4300-abb6": {
+      "guid": "3dd810dd8b23",
+      "size": 80,
+      "readable": true
+    },
+    "MokListRT-605dab50-e046-4300-abb6": {
+      "guid": "3dd810dd8b23",
+      "size": 1128,
+      "readable": true
+    },
+    "HiiDB-1b838190-4625-4ead-abc9": {
+      "guid": "cd5e6af18fe0",
+      "size": 12,
+      "readable": true
+    },
+    "PCIEPowerControl-7a09bc55-83e8-4d4d-93b0": {
+      "guid": "89d80eedb720",
+      "size": 8,
+      "readable": true
+    },
+    "BootCurrent-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 6,
+      "readable": true
+    },
+    "PlatformLangCodes-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 72,
+      "readable": true
+    },
+    "ErrOutDev-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 34,
+      "readable": true
+    },
+    "BootOptionSupport-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 8,
+      "readable": true
+    },
+    "ConInDev-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 116,
+      "readable": true
+    },
+    "ConOutDev-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 34,
+      "readable": true
+    },
+    "OsIndicationsSupported-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 12,
+      "readable": true
+    },
+    "TbtSetupVolatileData-ec87d643-eba4-4bb5-a1e5": {
+      "guid": "3f3e36b20da9",
+      "size": 10,
+      "readable": true
+    },
+    "CpuSetupVolatileData-b08f97ff-e6e8-4193-a997": {
+      "guid": "5e9e9b0adb32",
+      "size": 13,
+      "readable": true
+    },
+    "TpmServFlags-7d3dceee-cbce-4ea7-8709": {
+      "guid": "6e552f1edbde",
+      "size": 12,
+      "readable": true
+    },
+    "AsusGnvsVariable-d763220a-8214-4f10-8658": {
+      "guid": "de40ef1769e1",
+      "size": 12,
+      "readable": true
+    },
+    "PKDefault-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 855,
+      "readable": true
+    },
+    "KEKDefault-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 3922,
+      "readable": true
+    },
+    "dbDefault-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 6988,
+      "readable": true
+    },
+    "dbtDefault-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 1569,
+      "readable": true
+    },
+    "dbxDefault-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 17840,
+      "readable": true
+    },
+    "MyasusAutoInstall-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 5,
+      "readable": true
+    },
+    "PlatformLangChange-d763220a-8214-4f10-8658": {
+      "guid": "de40ef1769e1",
+      "size": 5,
+      "readable": true
+    },
+    "AsusGpnvVersion-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 6,
+      "readable": true
+    },
+    "BootMediaInfo-5bd6b672-b6ea-4d6a-b590": {
+      "guid": "18a932b78794",
+      "size": 16,
+      "readable": true
+    },
+    "VendorKeys-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 5,
+      "readable": true
+    },
+    "SignatureSupport-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 148,
+      "readable": true
+    },
+    "SecureBoot-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 5,
+      "readable": true
+    },
+    "AuthVarPreBootPhase-7b59104a-c00d-4158-87ff": {
+      "guid": "f04d6396a915",
+      "size": 5,
+      "readable": true
+    },
+    "SetupMode-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 5,
+      "readable": true
+    },
+    "DeployedMode-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 5,
+      "readable": true
+    },
+    "AuditMode-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 5,
+      "readable": true
+    },
+    "PlatformLang-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 10,
+      "readable": true
+    },
+    "Boot000F-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 318,
+      "readable": true
+    },
+    "Boot000E-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 326,
+      "readable": true
+    },
+    "Boot0004-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 156,
+      "readable": true
+    },
+    "Boot0000-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 160,
+      "readable": true
+    },
+    "Boot000D-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 312,
+      "readable": true
+    },
+    "Boot000C-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 320,
+      "readable": true
+    },
+    "Boot000B-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 324,
+      "readable": true
+    },
+    "Boot000A-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 332,
+      "readable": true
+    },
+    "Boot0009-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 198,
+      "readable": true
+    },
+    "Boot0008-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 204,
+      "readable": true
+    },
+    "Boot0003-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 122,
+      "readable": true
+    },
+    "PK-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 877,
+      "readable": true
+    },
+    "Timeout-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 6,
+      "readable": true
+    },
+    "PBRDevicePath-a9b5f8d2-cb6d-42c2-bc01": {
+      "guid": "b5ffaae4335e",
+      "size": 540,
+      "readable": true
+    },
+    "BootOrder-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 30,
+      "readable": true
+    },
+    "dbx-d719b2cb-3d3a-4596-a3bc": {
+      "guid": "dad00e67656f",
+      "size": 17840,
+      "readable": true
+    },
+    "WIIM-beca2d18-062a-47bd-b998": {
+      "guid": "7f5befd4c523",
+      "size": 263,
+      "readable": true
+    },
+    "Privacy_Policy-153c06e0-8bd0-4891-ba6a": {
+      "guid": "e5ad05036c82",
+      "size": 12,
+      "readable": true
+    },
+    "OsIndications-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 12,
+      "readable": true
+    },
+    "Boot0002-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 318,
+      "readable": true
+    },
+    "Boot0001-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 326,
+      "readable": true
+    },
+    "ErrOut-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 34,
+      "readable": true
+    },
+    "ConIn-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 116,
+      "readable": true
+    },
+    "ConOut-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 34,
+      "readable": true
+    },
+    "isDiag-4bc1c9d1-93e5-4807-80f0": {
+      "guid": "4f8cae643b32",
+      "size": 5,
+      "readable": true
+    },
+    "RemapportPathMapping-e5e0e2b2-5f15-4a5d-b208": {
+      "guid": "42535541c680",
+      "size": 10,
+      "readable": true
+    },
+    "OfflineUniqueIDEKPubCRC-eaec226f-c9a3-477a-a826": {
+      "guid": "ddc716cdc0e3",
+      "size": 8,
+      "readable": true
+    },
+    "OfflineUniqueIDEKPub-eaec226f-c9a3-477a-a826": {
+      "guid": "ddc716cdc0e3",
+      "size": 260,
+      "readable": true
+    },
+    "UnlockIDCopy-eaec226f-c9a3-477a-a826": {
+      "guid": "ddc716cdc0e3",
+      "size": 36,
+      "readable": true
+    },
+    "DefaultBootOrder-45cf35f6-0d6e-4d04-856a": {
+      "guid": "0370a5b16f53",
+      "size": 30,
+      "readable": true
+    },
+    "SIDSUPPORT-7d3dceee-cbce-4ea7-8709": {
+      "guid": "6e552f1edbde",
+      "size": 5,
+      "readable": true
+    },
+    "WifiSetup-ec87d643-eba4-4bb5-a1e5": {
+      "guid": "3f3e36b20da9",
+      "size": 52,
+      "readable": true
+    },
+    "IntelVmdDeviceInfo-231f36e7-d660-4e44-ab23": {
+      "guid": "157265d64a1a",
+      "size": 1224,
+      "readable": true
+    },
+    "IntelVmdOsVariableV2-d3f67d1d-f71f-4cae-812c": {
+      "guid": "b487d03384f5",
+      "size": 99,
+      "readable": true
+    },
+    "IntelRstFeatures-ca2fc9c8-71e7-4f72-b433": {
+      "guid": "c284456ff72b",
+      "size": 12,
+      "readable": true
+    },
+    "RealtekCountryCode-cc628489-a62f-44a3-9ca3": {
+      "guid": "9345776dbf8f",
+      "size": 8,
+      "readable": true
+    },
+    "MotherBoardHealth-ea1fcaee-3a77-4bb8-9b98": {
+      "guid": "518e75d29a99",
+      "size": 20,
+      "readable": true
+    },
+    "RmtRun-89ed4fc1-4234-47bc-9081": {
+      "guid": "7a6510a5e8a9",
+      "size": 5,
+      "readable": true
+    },
+    "AsusAnimationSetupConfig-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 7,
+      "readable": true
+    },
+    "TpvSetup-1c3483d5-1e7e-4450-9806": {
+      "guid": "dede002c974b",
+      "size": 15,
+      "readable": true
+    },
+    "ArmouryCrateStaticField-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 260,
+      "readable": true
+    },
+    "CnvUefiWlanUATS-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 343,
+      "readable": true
+    },
+    "UefiCnvCommonDSBR-e65d8884-d4af-4b20-8d03": {
+      "guid": "772ecc3da531",
+      "size": 9,
+      "readable": true
+    },
+    "UefiCnvWlanWBEM-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 9,
+      "readable": true
+    },
+    "IntelUefiCnvBtPpagSupport-42780dd5-9a7d-404c-80e4": {
+      "guid": "7f7094360394",
+      "size": 9,
+      "readable": true
+    },
+    "IntelUefiCnvBtBiQuadFilterBypass-42780dd5-9a7d-404c-80e4": {
+      "guid": "7f7094360394",
+      "size": 9,
+      "readable": true
+    },
+    "UefiCnvWlanMPCC-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 9,
+      "readable": true
+    },
+    "IntelUefiCnvWwanSkuSupport-e65d8884-d4af-4b20-8d03": {
+      "guid": "772ecc3da531",
+      "size": 11,
+      "readable": true
+    },
+    "UefiCnvWlanSarGeoOffsetMapping-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 343,
+      "readable": true
+    },
+    "WCSC-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 10,
+      "readable": true
+    },
+    "WPFC-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 21,
+      "readable": true
+    },
+    "GPC-42780dd5-9a7d-404c-80e4": {
+      "guid": "7f7094360394",
+      "size": 17,
+      "readable": true
+    },
+    "GPC-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 17,
+      "readable": true
+    },
+    "SADS-42780dd5-9a7d-404c-80e4": {
+      "guid": "7f7094360394",
+      "size": 6,
+      "readable": true
+    },
+    "SADS-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 6,
+      "readable": true
+    },
+    "WGDS-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 23,
+      "readable": true
+    },
+    "EWRD-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 37,
+      "readable": true
+    },
+    "BRDS-42780dd5-9a7d-404c-80e4": {
+      "guid": "7f7094360394",
+      "size": 14,
+      "readable": true
+    },
+    "WRDS-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 16,
+      "readable": true
+    },
+    "WRDD-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 7,
+      "readable": true
+    },
+    "WAND-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 11,
+      "readable": true
+    },
+    "SPLC-92daaf2f-c02b-455b-b2ec": {
+      "guid": "f5a3594f4aea",
+      "size": 13,
+      "readable": true
+    },
+    "HwErrRecSupport-8be4df61-93ca-11d2-aa0d": {
+      "guid": "00e098032b8c",
+      "size": 6,
+      "readable": true
+    },
+    "CAL1-91b89306-5bac-4ae0-aab3": {
+      "guid": "207ec12e989b",
+      "size": 516,
+      "readable": true
+    },
+    "AMITCGPPIVAR-a8a2093b-fefa-43c1-8e62": {
+      "guid": "ce526847265e",
+      "size": 28,
+      "readable": true
+    },
+    "TPMPERBIOSFLAGS-7d3dceee-cbce-4ea7-8709": {
+      "guid": "6e552f1edbde",
+      "size": 10,
+      "readable": true
+    },
+    "InventecVariable-0f76aee3-473e-4188-ad41": {
+      "guid": "285f8d1b887a",
+      "size": 120,
+      "readable": true
+    },
+    "AsForceMemoryRetrain-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 7,
+      "readable": true
+    },
+    "BiosGuardCapsuleVariable-368b3153-563d-4610-8d94": {
+      "guid": "47a9fa8c4c16",
+      "size": 20,
+      "readable": true
+    },
+    "InitSetupVariable-ec87d643-eba4-4bb5-a1e5": {
+      "guid": "3f3e36b20da9",
+      "size": 5,
+      "readable": true
+    },
+    "TXT_WFT-d763220a-8214-4f10-8658": {
+      "guid": "de40ef1769e1",
+      "size": 5,
+      "readable": true
+    },
+    "GNVSProtocolECAN-d763220a-8214-4f10-8658": {
+      "guid": "de40ef1769e1",
+      "size": 5,
+      "readable": true
+    },
+    "GNVSProtocolPCAC-d763220a-8214-4f10-8658": {
+      "guid": "de40ef1769e1",
+      "size": 5,
+      "readable": true
+    },
+    "MonotonicCounter-01368881-c4ad-4b1d-b631": {
+      "guid": "d57a8ec8db6b",
+      "size": 8,
+      "readable": true
+    },
+    "OA30-91b89306-5bac-4ae0-aab3": {
+      "guid": "207ec12e989b",
+      "size": 260,
+      "readable": true
+    },
+    "MFG0-91b89306-5bac-4ae0-aab3": {
+      "guid": "207ec12e989b",
+      "size": 260,
+      "readable": true
+    },
+    "CNFG-91b89306-5bac-4ae0-aab3": {
+      "guid": "207ec12e989b",
+      "size": 260,
+      "readable": true
+    },
+    "db-d719b2cb-3d3a-4596-a3bc": {
+      "guid": "dad00e67656f",
+      "size": 2093,
+      "readable": true
+    },
+    "OfflineMemoryDumpUseCapability-77fa9abd-0359-4d32-bd60": {
+      "guid": "28f4e78f784b",
+      "size": 5,
+      "readable": true
+    },
+    "OemOSType-d06a0bc7-9feb-4cbb-bd78": {
+      "guid": "bbdce770efd3",
+      "size": 6,
+      "readable": true
+    },
+    "BuiltAsSecuredCorePC-77fa9abd-0359-4d32-bd60": {
+      "guid": "28f4e78f784b",
+      "size": 5,
+      "readable": true
+    },
+    "CALI_DATA-1f52d2a1-bb3a-457d-bc09": {
+      "guid": "43a3f4310a92",
+      "size": 92,
+      "readable": true
+    },
+    "AsusCameraHashValueUpdate-0e0bd45b-349a-4e49-a402": {
+      "guid": "d4b8819c7d10",
+      "size": 36,
+      "readable": true
+    },
+    "Property1-71202eee-5f53-40d9-ab3d": {
+      "guid": "9e0c26d96657",
+      "size": 20,
+      "readable": true
+    },
+    "CurrentPolicy-77fa9abd-0359-4d32-bd60": {
+      "guid": "28f4e78f784b",
+      "size": 5,
+      "readable": true
+    },
+    "TcssTbtRetimer-8542c05d-78f1-4229-bf5c": {
+      "guid": "798e44a0bfc9",
+      "size": 16,
+      "readable": true
+    },
+    "PreviousAsusTouchPadDevice-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 13,
+      "readable": true
+    },
+    "PreviousAsusCameraDevice-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 24,
+      "readable": true
+    },
+    "MemoryOverwriteRequestControl-e20939be-32d4-41be-a150": {
+      "guid": "897f85d49829",
+      "size": 5,
+      "readable": true
+    },
+    "MemoryOverwriteRequestControlLock-bb983ccf-151d-40e1-a07b": {
+      "guid": "4a17be168292",
+      "size": 5,
+      "readable": true
+    },
+    "MaximumTableSize-4b3082a3-80c6-4d7e-9cd0": {
+      "guid": "583917265df1",
+      "size": 6,
+      "readable": true
+    },
+    "SmbiosScratchBuffer-4b3082a3-80c6-4d7e-9cd0": {
+      "guid": "583917265df1",
+      "size": 12,
+      "readable": true
+    },
+    "SmbiosV3EntryPointTable-4b3082a3-80c6-4d7e-9cd0": {
+      "guid": "583917265df1",
+      "size": 12,
+      "readable": true
+    },
+    "SmbiosEntryPointTableF000-4b3082a3-80c6-4d7e-9cd0": {
+      "guid": "583917265df1",
+      "size": 12,
+      "readable": true
+    },
+    "SmbiosEntryPointTable-4b3082a3-80c6-4d7e-9cd0": {
+      "guid": "583917265df1",
+      "size": 12,
+      "readable": true
+    },
+    "WriteOnceStatus-4b3082a3-80c6-4d7e-9cd0": {
+      "guid": "583917265df1",
+      "size": 68,
+      "readable": true
+    },
+    "GNVSProtocolDGPM-d763220a-8214-4f10-8658": {
+      "guid": "de40ef1769e1",
+      "size": 5,
+      "readable": true
+    },
+    "CloudRecoverySupport-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 5,
+      "readable": true
+    },
+    "AsusManufactureVersion-607005d5-3f75-4b2e-98f0": {
+      "guid": "85ba66797a3e",
+      "size": 6,
+      "readable": true
+    },
+    "DeploymentModeNv-97e8965f-c761-4f48-b6e4": {
+      "guid": "9ffa9cb2a2d6",
+      "size": 5,
+      "readable": true
+    }
+  }
+}

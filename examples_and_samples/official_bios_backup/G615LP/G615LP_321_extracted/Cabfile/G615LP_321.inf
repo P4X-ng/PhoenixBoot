@@ -1,0 +1,51 @@
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = Firmware
+ClassGuid   = {f2e7dd72-6468-4e36-b6f1-6488f42c1b52}
+Provider    = %Provider%
+DriverVer   = 06/10/2025,10.1.2.321
+CatalogFile = G615LP_321.cat
+PnpLockdown = 1
+
+[Manufacturer]
+%Provider% = Firmware,NTamd64
+
+[Firmware.NTamd64]
+%SystemFirmwareDesc% = FirmwareInstall,UEFI\RES_{16ca12d3-c353-53b7-8f20-877e9c3cfc1d}
+
+[FirmwareInstall.NT]
+CopyFiles = Firmware_CopyFiles
+
+[Firmware_CopyFiles]
+G615LP.321
+
+[FirmwareInstall.NT.Hw]
+AddReg = Firmware_AddReg
+
+[Firmware_AddReg]
+HKR,,FirmwareId,,{16ca12d3-c353-53b7-8f20-877e9c3cfc1d}
+HKR,,FirmwareVersion,%REG_DWORD%,0x00000321
+HKR,,FirmwareFilename,,{16ca12d3-c353-53b7-8f20-877e9c3cfc1d}\G615LP.321
+
+[SourceDisksNames]
+1 = %DiskName%
+
+[SourceDisksFiles]
+G615LP.321 = 1
+
+[DestinationDirs]
+DefaultDestDir = %DIRD_WINDOWS%,Firmware\{16ca12d3-c353-53b7-8f20-877e9c3cfc1d}
+
+[Strings]
+; localizable strings
+Provider             = "ASUSTeK COMPUTER INC."
+ClassDesc            = "Firmware"
+FirmwareResourceDesc = "Firmware Resource"
+SystemFirmwareDesc   = "ROG Strix G16 UEFI"
+DiskName             = "Firmware Update"
+
+; non-localizable strings
+DIRD_WINDOWS = 10
+REG_MULTI_SZ = 0x00010000
+REG_DWORD    = 0x00010001
+

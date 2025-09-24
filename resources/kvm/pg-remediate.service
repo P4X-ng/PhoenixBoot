@@ -1,0 +1,12 @@
+[Unit]
+Description=PhoenixGuard Remediation Boot (fwupd/vendor)
+After=network-online.target local-fs.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/pg-remediate.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

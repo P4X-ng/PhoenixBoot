@@ -1,0 +1,42 @@
+{
+  "extraction_date": "2025-08-25T03:17:00Z",
+  "model": "ROG Strix G16 G615LP_G615LP",
+  "bios_version": "G615LP.303",
+  "bios_date": "05/05/2025",
+  "manufacturer": "ASUSTeK COMPUTER INC.",
+  
+  "software_extraction_status": {
+    "flashrom_internal": "BLOCKED - kernel lockdown integrity mode",
+    "uefi_variables": "ACCESSIBLE - can read EFI vars",
+    "sys_firmware": "ACCESSIBLE - limited EFI info",
+    "secure_kexec": "BLOCKED - kexec_load_disabled=1",
+    "dmidecode": "ACCESSIBLE - system info available"
+  },
+  
+  "security_status": {
+    "kernel_lockdown": "integrity", 
+    "secure_boot": "enabled",
+    "kexec_disabled": true,
+    "firmware_access": "hardware_required"
+  },
+  
+  "next_steps": {
+    "recommended": "hardware_extraction",
+    "method": "CH341A SPI programmer",
+    "reason": "All software methods blocked by security policies"
+  },
+  
+  "hardware_info": {
+    "target_chip": "SPI flash (likely Winbond W25Q128 or similar)",
+    "package": "SOP8",
+    "programmer": "CH341A",
+    "clip": "SOP8 test clip"
+  },
+  
+  "notes": [
+    "This is EXACTLY why hardware extraction exists",
+    "Security policies work as designed - blocking software access",
+    "CH341A will bypass all software restrictions",
+    "Hardware extraction is the correct next step"
+  ]
+}

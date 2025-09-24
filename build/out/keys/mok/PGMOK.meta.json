@@ -1,0 +1,11 @@
+{
+  "subject": "subject=CN = PhoenixGuard Module Key",
+  "issuer": "issuer=CN = PhoenixGuard Module Key",
+  "validity": "notBefore=Sep 13 18:59:48 2025 GMT notAfter=Sep 11 18:59:48 2035 GMT ",
+  "sha1": "sha1 Fingerprint=DD:FB:A3:30:25:2D:5D:3A:A7:C2:3B:37:46:A9:AD:7D:0E:4C:6D:5B",
+  "sha256": "sha256 Fingerprint=77:08:05:2E:B4:98:74:34:B6:B5:06:6B:0D:70:CD:DD:EA:46:C9:23:B1:B0:E9:F4:02:68:0F:B0:88:75:AA:7F",
+  "created_utc": "2025-09-20T05:06:52Z",
+  "paths": {"pem": "out/keys/mok/PGMOK.crt", "der": "out/keys/mok/PGMOK.der", "key": "out/keys/mok/PGMOK.key"},
+  "imported_at_utc": "2025-09-20T05:06:52Z",
+  "pending": true
+}

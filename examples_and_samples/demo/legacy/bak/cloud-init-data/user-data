@@ -1,0 +1,20 @@
+#cloud-config
+users:
+  - name: demo
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7... # placeholder key
+
+packages:
+  - python3
+  - python3-pip
+  - dmidecode
+  - flashrom
+  - qemu-utils
+
+runcmd:
+  - mkdir -p /mnt/phoenixguard
+  - echo "PhoenixGuard Demo Environment Ready" > /etc/motd
+  - echo "alias demo='sudo bash /mnt/phoenixguard/demo_script.sh'" >> /home/demo/.bashrc

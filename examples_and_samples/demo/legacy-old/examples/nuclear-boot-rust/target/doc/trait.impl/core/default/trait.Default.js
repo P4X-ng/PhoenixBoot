@@ -1,0 +1,9 @@
+(function() {
+    var implementors = Object.fromEntries([["bootloader_api",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"enum\" href=\"bootloader_api/config/enum.Mapping.html\" title=\"enum bootloader_api::config::Mapping\">Mapping</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"bootloader_api/config/struct.ApiVersion.html\" title=\"struct bootloader_api::config::ApiVersion\">ApiVersion</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"bootloader_api/config/struct.BootloaderConfig.html\" title=\"struct bootloader_api::config::BootloaderConfig\">BootloaderConfig</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"bootloader_api/config/struct.FrameBuffer.html\" title=\"struct bootloader_api::config::FrameBuffer\">FrameBuffer</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"bootloader_api/config/struct.Mappings.html\" title=\"struct bootloader_api::config::Mappings\">Mappings</a>"]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":57,"fragment_lengths":[1515]}

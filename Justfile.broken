@@ -1,0 +1,93 @@
+# PhoenixGuard Production Orchestrator
+# ===================================
+# Primary build orchestrator for production firmware defense system.
+# This file imports modular Justfiles. See Justfile.* for details.
+
+# Import all modular Justfiles
+import './Justfile.vars'
+import? './Justfile.build'
+import? './Justfile.test'
+import? './Justfile.secure'
+import? './Justfile.code-org'
+import? './Justfile.maintenance'
+import? './Justfile.iso'
+import? './Justfile.os'
+import? './Justfile.usb': just valid <operation> [args]"; echo "Available valid-* ops:"; just --list | sed -n 's/^(valid-[a-zA-Z0-9_-]*).*/\\1/p' | sort | xargs -I{} echo "  {}"; exit 1;
+	fi
+	just --justfile '{{justfile()}}' "valid-{{op}}"
+import? './Justfile.nuke'
+import? './Justfile.validate'
+
+# Default task: show available commands
+default: help
+
+# Show available targets
+help:
+	@echo "🔥 PHOENIXGUARD - Production Firmware Defense System"
+	@echo "===================================================="
+	@echo ""
+	@echo "This Justfile is modular. Recipes are organized into the following files:"
+	@echo "  - Justfile.vars:        Centralized variables"
+	@echo "  - Justfile.build:       Build and packaging tasks"
+	@echo "  - Justfile.test:        Testing workflows"
+	@echo "  - Justfile.secure:      Secure Boot and MOK management"
+	@echo "  - Justfile.code-org:    Code organization and refactoring"
+	@echo "  - Justfile.maintenance: Linting, formatting, cleaning"
+	@echo "  - Justfile.iso:         ISO-related workflows"
+	@echo "  - Justfile.os:          Host OS interactions"
+	@echo "  - Justfile.usb:         USB media creation"
+	@echo "  - Justfile.nuke:        Nuclear Boot workflows"
+	@echo "  - Justfile.validate:    Validation and verification tasks"
+	@echo ""
+	@echo "🔎 To see all available recipes from all modules, run:"
+	@echo "  just --list"
+	@echo ""
+	@echo "🚀 A good starting point is the main production pipeline:"
+	@echo "  just secure"
+	@echo ""
+
+# --- High-level pipelines ---
+run: setup build package-esp verify virtual-tests
+	@echo "🚀 PhoenixGuard pipeline: setup → build → package-esp → verify → virtual-tests"
+
+secure: setup build package-esp-enroll enroll-secureboot package-esp verify tests-secure
+	@echo "🔐 PhoenixGuard secure pipeline: setup → build → enroll → verify → secure tests"
+
+# --- Namespace dispatchers (so you can `just os <op>` etc.) ---
+iso op="":
+	#!/usr/bin/env bash
+	set -euo pipefail
+	if [ -z "{{op}}" ]; then
+		echo "Usage: just iso <operation> [args]"; echo "Available iso-* ops:"; just --list | sed -n 's/^(iso-[a-zA-Z0-9_-]*).*/\\1/p' | sort | xargs -I{} echo "  {}"; exit 1;
+	fi
+	just --justfile '{{justfile()}}' "iso-{{op}}"
+
+os +args op="":
+	#!/usr/bin/env bash
+	set -euo pipefail
+	if [ -z "{{op}}" ]; then
+		echo "Usage: just os <operation> [args]"; echo "Available os-* ops:"; just --list | sed -n 's/^(os-[a-zA-Z0-9_-]*).*/\\1/p' | sort | xargs -I{} echo "  {}"; exit 1;
+	fi
+	just --justfile '{{justfile()}}' "os-{{op}}" {{args}}
+
+usb op="":
+	#!/usr/bin/env bash
+	set -euo pipefail
+	if [ -z "{{op}}" ]; then
+		echo "Usage: just usb <operation> [args]"; echo "Available usb-* ops:"; just --list | sed -n 's/^(usb-[a-zA-Z0-9_-]*).*/\\1/p' | sort | xargs -I{} echo "  {}"; exit 1;
+	fi
+	just --justfile '{{justfile()}}' "usb-{{op}}"
+
+nuke op="":
+	#!/usr/bin/env bash
+	set -euo pipefail
+	if [ -z "{{op}}" ]; then
+		echo "Usage: just nuke <operation> [args]"; echo "Available nuke-* ops:"; just --list | sed -n 's/^(nuke-[a-zA-Z0-9_-]*).*/\\1/p' | sort | xargs -I{} echo "  {}"; exit 1;
+	fi
+	just --justfile '{{justfile()}}' "nuke-{{op}}"
+
+valid op="":
+	#!/usr/bin/env bash
+	set -euo pipefail
+	if [ -z "{{op}}" ]; then
+		echo "Usage

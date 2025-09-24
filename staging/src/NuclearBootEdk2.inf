@@ -1,0 +1,56 @@
+## @file
+#  Nuclear Boot EDK2 Application
+#
+#  Battle-tested UEFI-based bootloader for PhoenixGuard
+#  Uses EDK2 for maximum compatibility and reliability
+#
+#  Copyright (c) 2024, PhoenixGuard Project. All rights reserved.<BR>
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010006
+  BASE_NAME                      = NuclearBootEdk2
+  FILE_GUID                      = 12345678-1234-1234-1234-123456789abc
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UefiMain
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  NuclearBootEdk2.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  CryptoPkg/CryptoPkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  DebugLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  BaseLib
+  PrintLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DevicePathLib
+  BaseCryptLib
+
+[Protocols]
+  gEfiSimpleNetworkProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiLoadedImageProtocolGuid
+
+[Guids]
+  gEfiFileInfoGuid
+
+[BuildOptions]
+  *_*_*_CC_FLAGS = -DEFI_DEBUG_CLEAR_MEMORY

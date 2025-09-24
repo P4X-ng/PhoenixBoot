@@ -1,0 +1,83 @@
+{
+  "test_timestamp": "2025-08-23T05:17:01.992909",
+  "tests_passed": 4,
+  "tests_failed": 0,
+  "test_results": [
+    {
+      "test_name": "phoenixguard_deployment",
+      "passed": true,
+      "details": {
+        "NuclearBootEdk2.efi": {
+          "size": 13376,
+          "modified": "2025-08-20T06:49:08"
+        },
+        "grubx64.efi": {
+          "size": 2660232,
+          "modified": "2025-08-20T06:49:28"
+        },
+        "grub.cfg": {
+          "size": 1173,
+          "modified": "2025-08-23T02:17:48"
+        },
+        "vmlinuz": {
+          "size": 15546760,
+          "modified": "2025-08-20T06:49:02"
+        },
+        "initrd.img": {
+          "size": 106305722,
+          "modified": "2025-08-20T06:49:02"
+        },
+        "present_files": [
+          "NuclearBootEdk2.efi",
+          "grubx64.efi",
+          "grub.cfg",
+          "vmlinuz",
+          "initrd.img"
+        ],
+        "missing_files": []
+      }
+    },
+    {
+      "test_name": "secure_boot_status",
+      "passed": true,
+      "details": {
+        "mokutil_output": "SecureBoot enabled",
+        "secure_boot_enabled": true
+      }
+    },
+    {
+      "test_name": "grub_corruption_detection",
+      "passed": true,
+      "details": {
+        "clean_grub_size": 2660232,
+        "ubuntu_grub_size": 2661292,
+        "clean_grub_hash": "a831af01e4fb5e3c9457120e1d08ea13d98a0a47b62728c284b7f502d535965c",
+        "ubuntu_grub_hash": "386fdd029457f6decd037d8c10c3f9efa660f16265d0b1143de5a3cb9de17f8e",
+        "corruption_detected": true
+      }
+    },
+    {
+      "test_name": "bootkit_detection",
+      "passed": true,
+      "details": {
+        "scan_results": {
+          "scan_timestamp": "2025-08-23T06:30:46.686763",
+          "threats_detected": [],
+          "modifications_found": [
+            {
+              "type": "VERSION_MISMATCH",
+              "severity": "HIGH",
+              "details": "BIOS version changed: expected AS.325, got G615LP.303",
+              "risk_indicators": [
+                "version_rollback",
+                "unauthorized_update"
+              ]
+            }
+          ],
+          "risk_level": "MEDIUM",
+          "recommended_action": "INVESTIGATE"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+source scripts/lib/common.sh
+
+info "🧭 UUEFI apply (set BootNext for selected app)"
+
+# Dry-run mode: UUEFI_DRYRUN=1
+DRY=${UUEFI_DRYRUN:-}
+run() { if [ -n "$DRY" ]; then echo "DRYRUN: $*"; else eval "$*"; fi }
+need_sudo() {
+  if [ -n "$DRY" ]; then echo sudo -n "$@" || true; else sudo -n "$@"; fi
+}
+
+if ! command -v efibootmgr >/dev/null 2>&1; then
+  die "efibootmgr not installed"
+fi
+
+# Choose APP and corresponding loader path
+# APP options:
+#  - PhoenixGuard (default): \\EFI\\PhoenixGuard\\BootX64.efi
+#  - UUEFI: \\EFI\\PhoenixGuard\\UUEFI.efi
+#  - BOOT: \\EFI\\BOOT\\BOOTX64.EFI
+APP=${APP:-PhoenixGuard}
+case "$APP" in
+  PhoenixGuard|phoenixguard)
+    LOADER="\\EFI\\PhoenixGuard\\BootX64.efi"
+    LABEL="PhoenixGuard"
+    ;;
+  UUEFI|uuefi)
+    LOADER="\\EFI\\PhoenixGuard\\UUEFI.efi"
+    LABEL="PhoenixGuard-UUEFI"
+    ;;
+  BOOT|boot)
+    LOADER="\\EFI\\BOOT\\BOOTX64.EFI"
+    LABEL="PhoenixGuard-BOOT"
+    ;;
+  *)
+    die "Unknown APP='$APP'. Expected PhoenixGuard|UUEFI|BOOT"
+    ;;
+}
+esac
+
+info "Target APP='$APP' LOADER='$LOADER'"
+
+# Try to find an existing boot entry matching LOADER
+BOOTNUM=""
+LIST_OUTPUT=""
+if efibootmgr -v >/dev/null 2>&1; then
+  LIST_OUTPUT="$(efibootmgr -v 2>/dev/null || true)"
+else
+  LIST_OUTPUT="$(sudo -n efibootmgr -v 2>/dev/null || true)"
+fi
+
+if [ -n "$LIST_OUTPUT" ]; then
+  # Look for a File(...) entry pointing at the LOADER path
+  GREP_PATTERN=$(printf '%s' "$LOADER" | sed 's/\\/\\\\/g')
+  BOOTNUM=$(printf '%s\n' "$LIST_OUTPUT" | awk '/Boot[0-9A-Fa-f]{4}\*/{print}' | \
+    grep -i "$GREP_PATTERN" | sed -n 's/^Boot\([0-9A-Fa-f]\{4\}\).*/\1/p' | head -n1)
+fi
+
+if [ -n "$BOOTNUM" ]; then
+  info "Found entry: Boot$BOOTNUM ($LABEL)"
+  echo "Setting BootNext to $BOOTNUM"
+  if efibootmgr -n "$BOOTNUM" >/dev/null 2>&1; then
+    efibootmgr -n "$BOOTNUM" || true
+  else
+    need_sudo efibootmgr -n "$BOOTNUM" || die "Failed to set BootNext (need sudo?)"
+  fi
+  ok "BootNext set to $BOOTNUM"
+  exit 0
+fi
+
+# No existing entry; optionally create if EFI_DISK and EFI_PART provided
+if [ -n "${EFI_DISK:-}" ] && [ -n "${EFI_PART:-}" ]; then
+  info "Creating '$LABEL' boot entry on ${EFI_DISK}p${EFI_PART}"
+  if efibootmgr -c -d "${EFI_DISK}" -p "${EFI_PART}" -L "$LABEL" -l "$LOADER" >/dev/null 2>&1; then
+    :
+  else
+    need_sudo efibootmgr -c -d "${EFI_DISK}" -p "${EFI_PART}" -L "$LABEL" -l "$LOADER" || die "Failed to create boot entry"
+  fi
+  # Re-list to find the newly created entry and set BootNext
+  if efibootmgr -v >/dev/null 2>&1; then
+    LIST_OUTPUT="$(efibootmgr -v 2>/dev/null || true)"
+  else
+    LIST_OUTPUT="$(sudo -n efibootmgr -v 2>/dev/null || true)"
+  fi
+  GREP_PATTERN=$(printf '%s' "$LOADER" | sed 's/\\/\\\\/g')
+  BOOTNUM=$(printf '%s\n' "$LIST_OUTPUT" | awk '/Boot[0-9A-Fa-f]{4}\*/{print}' | \
+    grep -i "$GREP_PATTERN" | sed -n 's/^Boot\([0-9A-Fa-f]\{4\}\).*/\1/p' | head -n1)
+  if [ -n "$BOOTNUM" ]; then
+    info "Created entry: Boot$BOOTNUM ($LABEL)"
+    if efibootmgr -n "$BOOTNUM" >/dev/null 2>&1; then
+      efibootmgr -n "$BOOTNUM" || true
+    else
+      need_sudo efibootmgr -n "$BOOTNUM" || die "Failed to set BootNext (need sudo?)"
+    fi
+    ok "BootNext set to $BOOTNUM"
+    exit 0
+  else
+    die "Could not locate created entry after creation"
+  fi
+else
+  err "No existing entry found for LOADER=$LOADER."
+  echo "Provide EFI_DISK=/dev/sdX and EFI_PART=1 to create an entry."
+  echo "Example: EFI_DISK=/dev/nvme0n1 EFI_PART=1 APP=$APP just uuefi-apply"
+  exit 1
+fi
+

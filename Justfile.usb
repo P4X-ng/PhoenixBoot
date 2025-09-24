@@ -1,0 +1,46 @@
+# PhoenixGuard USB Workflows
+
+# Import shared variables
+import './Justfile.vars'
+
+
+# Show usb module help
+help:
+	@echo "PhoenixGuard USB Module"
+	@echo "======================="
+	@echo ""
+	@echo "Available commands:"
+	@echo "  USB1_DEV=/dev/sdX CONFIRM=1 just usb media-write                        # Write ESP image to USB (dd, DESTRUCTIVE)"
+	@echo "  just usb run                    # Create production USB (requires USB1_DEV; may write media)"
+	@echo "  just usb legacy                 # Create legacy bootable USB"
+	@echo "  just usb enroll                 # Create Secure Boot enrollment USB"
+	@echo "  just usb sanitize               # Sanitize attached USB ESP"
+	@echo ""
+	@echo "Notes:"
+	@echo "  - Set USB1_DEV or USB_DEVICE to the target device (e.g., /dev/sdb)"
+	@echo "  - Set CONFIRM=1 (or USB_DEVICE_CONFIRM=I_UNDERSTAND) to enable destructive write"
+	@echo "  - Optional: USB_FORCE=1 to override root-disk protection (DANGER)"
+
+# High-level: create production USB with unified SB artifacts
+run:
+	@echo "🚀 USB run: build → package → secure normalize → verify → write to USB → sanitize"
+	@bash scripts/usb-run.sh
+
+# Create a legacy bootable USB
+legacy:
+	@just build package-esp
+	@just validate verify-esp-robust
+	@bash scripts/usb-prepare.sh
+
+# Create a Secure Boot enrollment USB
+enroll:
+	@just secure package-esp-enroll
+	@bash scripts/usb-enroll.sh
+
+# Sanitize an attached USB ESP
+sanitize:
+	@bash scripts/usb-sanitize.sh
+
+# One-command USB writer (dd, destructive; requires USB_DEVICE_CONFIRM)
+media-write:
+	@bash scripts/usb-write-dd.sh

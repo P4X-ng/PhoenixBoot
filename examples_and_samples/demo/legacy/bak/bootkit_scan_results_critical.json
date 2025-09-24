@@ -1,0 +1,29 @@
+{
+  "scan_timestamp": "2025-08-24T23:05:00.000000",
+  "risk_level": "CRITICAL",
+  "threats_detected": 3,
+  "system_status": "INFECTED",
+  "baseline_hash": "85b31e2841f50aeb87c70214eabf0036d07d84479a6977be684a3ad902a6f0f1",
+  "detected_threats": [
+    {
+      "type": "persistence_bootkit",
+      "location": "/boot/efi/EFI/.hidden_bootkit/config.json",
+      "severity": "CRITICAL",
+      "description": "Persistent bootkit found in ESP"
+    },
+    {
+      "type": "firmware_modification",
+      "location": "SPI_FLASH",
+      "severity": "HIGH",
+      "description": "Firmware hash mismatch detected"
+    },
+    {
+      "type": "bootloader_hijack",
+      "location": "/boot/efi/EFI/ubuntu/grubx64.efi",
+      "severity": "HIGH",
+      "description": "Bootloader appears modified"
+    }
+  ],
+  "recommended_action": "IMMEDIATE_ESCALATION",
+  "next_level": 2
+}

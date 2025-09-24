@@ -1,0 +1,13 @@
+Checking required toolchain...
+=============================
+✅ gcc: /usr/bin/gcc
+✅ qemu-system-x86_64: /usr/bin/qemu-system-x86_64
+✅ mtools: /usr/bin/mtools
+✅ mkfs.fat: /usr/sbin/mkfs.fat
+✅ parted: /usr/sbin/parted
+✅ python3: /usr/bin/python3
+✅ mokutil: /usr/bin/mokutil
+✅ openssl: /usr/bin/openssl
+✅ OVMF: /usr/share/OVMF/OVMF_CODE_4M.fd
+      /usr/share/OVMF/OVMF_VARS_4M.fd
+SUCCESS: All tools available

@@ -1,0 +1,21 @@
+/mnt/pgusb1
+├── boot
+│   └── grub
+│       └── grub.cfg
+├── EFI
+│   ├── BOOT
+│   │   ├── BOOTX64.EFI
+│   │   ├── grub.cfg
+│   │   ├── grubx64.efi
+│   │   ├── mmx64.efi
+│   │   └── MokNew.cer
+│   └── PhoenixGuard
+│       ├── Allowed.manifest.sha256
+│       ├── BootX64.efi
+│       ├── BootX64.efi.orig
+│       ├── grub.cfg
+│       └── NuclearBootEdk2.sha256
+└── ISO
+    └── ubuntu-24.04.3-live-server-amd64.iso
+
+7 directories, 12 files

@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-23T05:32:37.323145",
+  "sample_path": "realistic_bootkit_samples/lojax_inspired.bin",
+  "file_info": {
+    "size": 1423,
+    "modified": "2025-08-23T05:32:30.709719",
+    "md5": "eb94ce50c5260c4d62a66367245022ec",
+    "sha256": "efe0a5d393a57a370d97da9337ffd32527e5e96144f0101616dd95639a66e876"
+  },
+  "signatures": [],
+  "suspicious_strings": [
+    "        ; Simulated LoJax persistence mechanism",
+    "        ; 3. If not found, install minimal persistence",
+    "        LOJAX_PERSISTENCE_START:",
+    "            jz install_minimal_persistence",
+    "        install_minimal_persistence:",
+    "            ; Install minimal bootkit persistence",
+    "            lea rcx, [bootkit_service_key]",
+    "            lea rdx, [bootkit_dll_path]",
+    "            call create_service_persistence",
+    "        LOJAX_PERSISTENCE_END:",
+    "        LOJAX_INSPIRED_BOOTKIT_T"
+  ],
+  "entropy_analysis": {
+    "entropy": 5.5324425829203685,
+    "max_entropy": 8.0,
+    "normalized": 0.6915553228650461,
+    "assessment": "medium"
+  },
+  "pe_analysis": {}
+}

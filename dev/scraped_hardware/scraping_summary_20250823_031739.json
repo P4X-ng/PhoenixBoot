@@ -1,0 +1,12 @@
+{
+  "total_configurations": 9,
+  "vendors": [
+    "Various",
+    "ASUS",
+    "Lenovo"
+  ],
+  "average_uefi_variables": 2.5555555555555554,
+  "total_hidden_features": 30,
+  "processing_method": "CPU",
+  "scraped_at": "20250823_031739"
+}

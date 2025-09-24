@@ -1,0 +1,12 @@
+25467d3f4dd1188475300d9713d1a0c31aa9ed28b5c92d419e8c9803668ec282  /mnt/pgusb1/boot/grub/grub.cfg
+6fe6e1bcbe6cf6baec8e056d40361ca1aa715cc04ddcc2855351de060b84350b  /mnt/pgusb1/EFI/BOOT/BOOTX64.EFI
+25467d3f4dd1188475300d9713d1a0c31aa9ed28b5c92d419e8c9803668ec282  /mnt/pgusb1/EFI/BOOT/grub.cfg
+a831af01e4fb5e3c9457120e1d08ea13d98a0a47b62728c284b7f502d535965c  /mnt/pgusb1/EFI/BOOT/grubx64.efi
+d2fa8e52fddc99dad94a0009fee23cb2478c28373b777d50b2f784eb4e96f88e  /mnt/pgusb1/EFI/BOOT/mmx64.efi
+6cdad14f41ceedbfde291fae8012fc1d29fd4ee4f383ed38beda3bc5db8a3ee0  /mnt/pgusb1/EFI/BOOT/MokNew.cer
+3ea77c85d6ff30be53e0d090380e56155ff83821bff0f6bc111477fa9a70a397  /mnt/pgusb1/EFI/PhoenixGuard/Allowed.manifest.sha256
+7002c16572c69362dc366f6b48a7641df81dcdeb30fd80b43138491c9f3da8e5  /mnt/pgusb1/EFI/PhoenixGuard/BootX64.efi
+ace76d4d11dbdd7dc932704bdd831c8077a10fb1fd59679a392742be6fdce7f5  /mnt/pgusb1/EFI/PhoenixGuard/BootX64.efi.orig
+25467d3f4dd1188475300d9713d1a0c31aa9ed28b5c92d419e8c9803668ec282  /mnt/pgusb1/EFI/PhoenixGuard/grub.cfg
+6a76191c5719dee9c6dfdf68200934c6658a8e2ba1dabf9481e8841f88d81dde  /mnt/pgusb1/EFI/PhoenixGuard/NuclearBootEdk2.sha256
+c3514bf0056180d09376462a7a1b4f213c1d6e8ea67fae5c25099c6fd3d8274b  /mnt/pgusb1/ISO/ubuntu-24.04.3-live-server-amd64.iso

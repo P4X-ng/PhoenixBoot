@@ -1,0 +1,128 @@
+ℹ️  📀 Preparing secure USB on /dev/sda (partition /dev/sda1)
+mount: /mnt/pgusb1: /dev/sda1 already mounted on /mnt/pgusb1.
+       dmesg(1) may have more information after failed mount system call.
+ℹ️  📀 Preparing secure USB on /dev/sda (partition /dev/sda1)
+mount: /mnt/pgusb1: /dev/sda1 already mounted on /mnt/pgusb1.
+       dmesg(1) may have more information after failed mount system call.
+ℹ️  📀 Preparing secure USB on /dev/sda (partition /dev/sda1)
+mount: /mnt/pgusb1: /dev/sda1 already mounted on /mnt/pgusb1.
+       dmesg(1) may have more information after failed mount system call.
++ info '📀 Preparing secure USB on /dev/sda (partition /dev/sda1)'
++ printf 'ℹ️  %s\n' '📀 Preparing secure USB on /dev/sda (partition /dev/sda1)'
+ℹ️  📀 Preparing secure USB on /dev/sda (partition /dev/sda1)
++ trap cleanup EXIT
++ sudo mkdir -p /mnt/pgusb1 /mnt/esploop
++ mountpoint -q /mnt/esploop
++ mountpoint -q /mnt/pgusb1
++ sudo mount -o loop,ro out/esp/esp.img /mnt/esploop
++ sudo mount /dev/sda1 /mnt/pgusb1
++ sudo mkdir -p /mnt/pgusb1/EFI/PhoenixGuard
++ '[' '!' -f /mnt/pgusb1/EFI/PhoenixGuard/BootX64.efi ']'
++ '[' -n '' ']'
++ bash scripts/organize-usb1.sh
+mount: /mnt/pgusb1: /dev/sda1 already mounted on /mnt/pgusb1.
+       dmesg(1) may have more information after failed mount system call.
++ cleanup
++ for m in /mnt/esploop /mnt/pgusb1
++ mountpoint -q /mnt/esploop
++ sudo umount /mnt/esploop
++ for m in /mnt/esploop /mnt/pgusb1
++ mountpoint -q /mnt/pgusb1
++ sudo umount /mnt/pgusb1
++ rmdir /mnt/esploop /mnt/pgusb1
++ info '📀 Preparing secure USB on /dev/sda (partition /dev/sda1)'
++ printf 'ℹ️  %s\n' '📀 Preparing secure USB on /dev/sda (partition /dev/sda1)'
+ℹ️  📀 Preparing secure USB on /dev/sda (partition /dev/sda1)
++ trap cleanup EXIT
++ sudo mkdir -p /mnt/pgusb1 /mnt/esploop
++ mountpoint -q /mnt/esploop
++ mountpoint -q /mnt/pgusb1
++ sudo mount -o loop,ro out/esp/esp.img /mnt/esploop
++ sudo mount /dev/sda1 /mnt/pgusb1
++ sudo mkdir -p /mnt/pgusb1/EFI/PhoenixGuard
++ '[' '!' -f /mnt/pgusb1/EFI/PhoenixGuard/BootX64.efi ']'
++ '[' -n '' ']'
++ bash scripts/organize-usb1.sh
+mount: /mnt/pgusb1: /dev/sda1 already mounted on /mnt/pgusb1.
+       dmesg(1) may have more information after failed mount system call.
++ cleanup
++ for m in /mnt/esploop /mnt/pgusb1
++ mountpoint -q /mnt/esploop
++ sudo umount /mnt/esploop
++ for m in /mnt/esploop /mnt/pgusb1
++ mountpoint -q /mnt/pgusb1
++ sudo umount /mnt/pgusb1
++ rmdir /mnt/esploop /mnt/pgusb1
+ℹ️  📀 Preparing secure USB on /dev/sda (partition /dev/sda1)
+warning: data remaining[840592 vs 966664]: gaps between PE/COFF sections?
+Image was already signed; adding additional signature
+/mnt/pgusb1
+├── boot
+│   └── grub
+│       └── grub.cfg
+├── db
+├── dbx
+├── EFI
+│   ├── BOOT
+│   │   ├── BOOTX64.EFI
+│   │   ├── grub.cfg
+│   │   ├── grubx64.efi
+│   │   ├── mmx64.efi
+│   │   └── MokNew.cer
+│   └── PhoenixGuard
+│       ├── Allowed.manifest.sha256
+│       ├── BootX64.efi
+│       ├── BootX64.efi.orig
+│       ├── grub.cfg
+│       ├── keys
+│       │   ├── db.auth
+│       │   ├── kek.auth
+│       │   └── pk.auth
+│       └── NuclearBootEdk2.sha256
+├── ISO
+│   └── ubuntu-24.04.3-live-server-amd64.iso
+├── KEK
+└── PK
+
+8 directories, 19 files
+✅ USB1 organized and verified
+✅ Secure USB prepared on /dev/sda
+ℹ️  📀 Preparing secure USB on /dev/sdb (partition /dev/sdb1)
+ℹ️  Copying ISO to USB with progress: ubuntu-24.04.3-live-server-amd64.iso
+         32,768   0%    0.00kB/s    0:00:00      200,900,608   6%  191.56MB/s    0:00:15      231,571,456   7%  109.64MB/s    0:00:27      256,999,424   7%   80.67MB/s    0:00:36      258,310,144   7%   58.86MB/s    0:00:50      284,262,400   8%   18.99MB/s    0:02:35      311,001,088   9%   18.14MB/s    0:02:41      334,856,192  10%   17.88MB/s    0:02:42      341,147,648  10%   19.23MB/s    0:02:30      364,478,464  11%   18.61MB/s    0:02:34      390,168,576  11%   18.35MB/s    0:02:35      415,072,256  12%   18.59MB/s    0:02:31      425,558,016  12%   18.87MB/s    0:02:28      446,005,248  13%   18.22MB/s    0:02:33      454,393,856  13%    1.72MB/s    0:27:01  rsync: [receiver] write failed on "/mnt/pgusb1/ISO/ubuntu-24.04.3-live-server-amd64.iso": No space left on device (28)
+rsync error: error in file IO (code 11) at receiver.c(381) [receiver=3.2.7]
+
+rsync: [sender] write error: Broken pipe (32)
+ℹ️  📀 Preparing secure USB on /dev/sdb (partition /dev/sdb1)
+ℹ️  Copying ISO to USB with progress: ubuntu-24.04.3-live-server-amd64.iso
+         32,768   0%    0.00kB/s    0:00:00  rsync: [receiver] mkstemp "/mnt/pgusb1/ISO/.ubuntu-24.04.3-live-server-amd64.iso.XHbuUr" failed: Permission denied (13)
+    406,618,112  12%  387.75MB/s    0:00:07      909,148,160  27%  433.72MB/s    0:00:05    1,604,878,336  48%  510.51MB/s    0:00:03    2,092,204,032  63%  499.19MB/s    0:00:02    2,592,899,072  78%  521.51MB/s    0:00:01    3,092,545,536  93%  520.43MB/s    0:00:00    3,303,444,480 100%  490.10MB/s    0:00:06 (xfr#1, to-chk=0/1)  3,303,444,480 100%  490.10MB/s    0:00:06 (xfr#1, to-chk=0/1)  3,303,444,480 100%  490.10MB/s    0:00:06 (xfr#1, to-chk=0/1)  3,303,444,480 100%  490.10MB/s    0:00:06 (xfr#1, to-chk=0/1)rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1338) [sender=3.2.7]
+
+ℹ️  📀 Preparing secure USB on /dev/sdb (partition /dev/sdb1)
+ℹ️  Copying ISO to USB with progress: ubuntu-24.04.3-live-server-amd64.iso
+         32,768   0%    0.00kB/s    0:00:00       88,276,992   2%   84.16MB/s    0:00:37      147,423,232   4%   70.28MB/s    0:00:43      167,346,176   5%   49.05MB/s    0:01:02      211,386,368   6%   47.19MB/s    0:01:03      261,390,336   7%   38.65MB/s    0:01:16      305,233,920   9%   30.92MB/s    0:01:34      349,798,400  10%   37.40MB/s    0:01:17      401,375,232  12%   39.11MB/s    0:01:12      443,645,952  13%   31.04MB/s    0:01:29      495,550,464  15%   36.27MB/s    0:01:15      556,892,160  16%   39.73MB/s    0:01:07      585,728,000  17%   31.82MB/s    0:01:23      638,418,944  19%   40.75MB/s    0:01:03      683,966,464  20%   39.43MB/s    0:01:04      722,567,168  21%   34.63MB/s    0:01:12      775,520,256  23%   45.13MB/s    0:00:54      831,619,072  25%   45.81MB/s    0:00:52      865,173,504  26%   42.28MB/s    0:00:56      917,602,304  27%   45.13MB/s    0:00:51      974,225,408  29%   46.01MB/s    0:00:49    1,016,692,736  30%   13.02MB/s    0:02:51    1,052,344,320  31%   12.96MB/s    0:02:49    1,095,860,224  33%   12.37MB/s    0:02:54    1,156,153,344  34%   12.62MB/s    0:02:46    1,216,970,752  36%   44.42MB/s    0:00:45    1,237,942,272  37%   42.67MB/s    0:00:47    1,290,305,536  39%   44.79MB/s    0:00:43    1,346,994,176  40%   43.49MB/s    0:00:43    1,389,461,504  42%   33.95MB/s    0:00:55    1,420,918,784  43%   37.04MB/s    0:00:49    1,441,366,016  43%   30.58MB/s    0:00:59    1,472,823,296  44%   24.88MB/s    0:01:11    1,496,940,544  45%   24.59MB/s    0:01:11    1,510,047,744  45%   18.55MB/s    0:01:34    1,525,776,384  46%   17.56MB/s    0:01:38    1,575,583,744  47%   22.15MB/s    0:01:16    1,628,536,832  49%   28.41MB/s    0:00:57    1,667,334,144  50%   37.26MB/s    0:00:42    1,668,907,008  50%   33.84MB/s    0:00:47    1,685,159,936  51%   24.77MB/s    0:01:03    1,742,831,616  52%   25.27MB/s    0:01:00    1,744,404,480  52%   15.68MB/s    0:01:37    1,758,035,968  53%   18.05MB/s    0:01:23    1,798,930,432  54%   23.86MB/s    0:01:01    1,802,076,160  54%   12.36MB/s    0:01:58    1,817,804,800  55%   16.28MB/s    0:01:29    1,851,359,232  56%   20.61MB/s    0:01:08    1,858,699,264  56%   11.56MB/s    0:02:02    1,872,855,040  56%   13.98MB/s    0:01:39    1,900,118,016  57%   16.46MB/s    0:01:23    1,937,342,464  58%   17.27MB/s    0:01:17    1,939,439,616  58%   18.47MB/s    0:01:12    1,971,945,472  59%   22.36MB/s    0:00:58    1,991,868,416  60%   21.00MB/s    0:01:00    1,996,062,720  60%   12.31MB/s    0:01:43    2,003,402,752  60%   13.58MB/s    0:01:33    2,012,315,648  60%    8.59MB/s    0:02:26    2,014,412,800  60%    4.37MB/s    0:04:48    2,019,131,392  61%    4.87MB/s    0:04:17    2,024,112,128  61%    4.38MB/s    0:04:45    2,025,947,136  61%    2.60MB/s    0:07:58    2,030,665,728  61%    3.31MB/s    0:06:14    2,035,384,320  61%    3.31MB/s    0:06:13    2,036,432,896  61%    2.38MB/s    0:08:39    2,040,627,200  61%    3.12MB/s    0:06:35    2,045,345,792  61%    3.18MB/s    0:06:26    2,050,588,672  62%    3.26MB/s    0:06:15    2,052,161,536  62%    3.46MB/s    0:05:52    2,061,074,432  62%    4.50MB/s    0:04:29    2,066,841,600  62%    4.76MB/s    0:04:13    2,068,414,464  62%    3.87MB/s    0:05:11    2,071,560,192  62%    4.32MB/s    0:04:38    2,076,278,784  62%    3.42MB/s    0:05:50    2,077,851,648  62%    2.14MB/s    0:09:19    2,083,618,816  63%    3.03MB/s    0:06:33    2,090,958,848  63%    3.76MB/s    0:05:14    2,094,104,576  63%    3.26MB/s    0:06:02    2,101,444,608  63%    4.81MB/s    0:04:04    2,111,406,080  63%    5.59MB/s    0:03:28    2,129,231,872  64%    6.69MB/s    0:02:51    2,143,911,936  64%    9.27MB/s    0:02:02    2,149,679,104  65%    9.05MB/s    0:02:04    2,151,776,256  65%    7.17MB/s    0:02:36    2,157,543,424  65%    6.01MB/s    0:03:06    2,162,524,160  65%    3.96MB/s    0:04:41    2,164,359,168  65%    2.84MB/s    0:06:31    2,198,372,352  66%    9.71MB/s    0:01:51    2,224,652,288  67%   13.96MB/s    0:01:15    2,228,322,304  67%   12.97MB/s    0:01:20    2,234,613,760  67%   14.67MB/s    0:01:11    2,239,856,640  67%    8.60MB/s    0:02:00    2,248,769,536  68%    4.10MB/s    0:04:11    2,258,731,008  68%    5.30MB/s    0:03:12    2,273,935,360  68%    7.14MB/s    0:02:20    2,276,556,800  68%    6.29MB/s    0:02:39    2,300,411,904  69%   10.82MB/s    0:01:30    2,307,489,792  69%   10.42MB/s    0:01:33    2,325,839,872  70%   10.68MB/s    0:01:29    2,338,947,072  70%   13.51MB/s    0:01:09    2,350,481,408  71%   10.87MB/s    0:01:25    2,368,307,200  71%   11.15MB/s    0:01:21    2,384,756,736  72%   11.33MB/s    0:01:19    2,414,444,544  73%   14.52MB/s    0:00:59    2,417,590,272  73%   12.00MB/s    0:01:12    2,423,357,440  73%   11.66MB/s    0:01:13    2,430,173,184  73%    8.82MB/s    0:01:36    2,435,940,352  73%    3.72MB/s    0:03:47    2,442,166,272  73%    4.57MB/s    0:03:03    2,476,310,528  74%    9.87MB/s    0:01:21    2,497,282,048  75%   12.75MB/s    0:01:01    2,551,808,000  77%   25.43MB/s    0:00:28    2,577,498,112  78%   29.68MB/s    0:00:23    2,584,838,144  78%   21.13MB/s    0:00:33    2,594,799,616  78%   20.00MB/s    0:00:34    2,618,392,576  79%   13.77MB/s    0:00:48    2,624,159,744  79%    8.33MB/s    0:01:19    2,633,072,640  79%    9.59MB/s    0:01:08    2,637,791,232  79%    8.52MB/s    0:01:16    2,698,084,352  81%   15.44MB/s    0:00:38    2,698,608,640  81%   16.76MB/s    0:00:35    2,710,142,976  82%   17.27MB/s    0:00:33    2,723,774,464  82%   19.54MB/s    0:00:28    2,727,444,480  82%    6.12MB/s    0:01:31    2,741,600,256  82%    8.91MB/s    0:01:01    2,749,988,864  83%    8.26MB/s    0:01:05    2,752,610,304  83%    5.51MB/s    0:01:37    2,780,397,568  84%   10.76MB/s    0:00:47    2,792,456,192  84%   10.50MB/s    0:00:47    2,796,650,496  84%    9.52MB/s    0:00:51    2,816,049,152  85%   13.96MB/s    0:00:34    2,833,350,656  85%   11.96MB/s    0:00:38    2,842,787,840  86%   11.34MB/s    0:00:39    2,853,273,600  86%   12.46MB/s    0:00:35    2,860,089,344  86%    9.58MB/s    0:00:45    2,868,477,952  86%    7.53MB/s    0:00:56    2,874,769,408  87%    6.49MB/s    0:01:04    2,907,275,264  88%   11.39MB/s    0:00:33    2,917,761,024  88%   12.30MB/s    0:00:30    2,928,246,784  88%   12.23MB/s    0:00:29    2,953,936,896  89%   16.37MB/s    0:00:20    2,968,354,816  89%   12.54MB/s    0:00:26    2,972,286,976  89%   10.23MB/s    0:00:31    2,986,180,608  90%   11.64MB/s    0:00:26    3,017,900,032  91%   13.42MB/s    0:00:20    3,022,618,624  91%   10.08MB/s    0:00:27    3,028,910,080  91%   11.63MB/s    0:00:23    3,037,790,208  91%   10.60MB/s    0:00:24    3,060,891,648  92%    8.82MB/s    0:00:26    3,064,037,376  92%    9.42MB/s    0:00:24    3,073,998,848  93%   10.27MB/s    0:00:21    3,086,057,472  93%   10.97MB/s    0:00:19    3,099,688,960  93%    8.32MB/s    0:00:23    3,130,621,952  94%   13.97MB/s    0:00:12    3,140,583,424  95%   13.74MB/s    0:00:11    3,144,253,440  95%   11.15MB/s    0:00:13    3,156,312,064  95%   11.27MB/s    0:00:12    3,173,613,568  96%    8.97MB/s    0:00:14    3,177,283,584  96%    7.49MB/s    0:00:16    3,208,740,864  97%   13.99MB/s    0:00:06    3,217,653,760  97%   13.39MB/s    0:00:06    3,232,858,112  97%   12.74MB/s    0:00:05    3,235,479,552  97%   12.07MB/s    0:00:05    3,242,819,584  98%    7.09MB/s    0:00:08    3,284,697,088  99%   14.08MB/s    0:00:01    3,295,772,672  99%   13.37MB/s    0:00:00    3,303,444,480 100%   15.72MB/s    0:03:20 (xfr#1, to-chk=0/1)  3,303,444,480 100%   15.72MB/s    0:03:20 (xfr#1, to-chk=0/1)  3,303,444,480 100%   15.71MB/s    0:03:20 (xfr#1, to-chk=0/1)  3,303,444,480 100%   15.71MB/s    0:03:20 (xfr#1, to-chk=0/1)
+ℹ️  Updating USB grub.cfg to robust version
+Image was already signed; adding additional signature
+/mnt/pgusb1
+├── boot
+│   └── grub
+│       └── grub.cfg
+├── EFI
+│   ├── BOOT
+│   │   ├── BOOTX64.EFI
+│   │   ├── grub.cfg
+│   │   ├── grubx64.efi
+│   │   ├── mmx64.efi
+│   │   └── MokNew.cer
+│   └── PhoenixGuard
+│       ├── Allowed.manifest.sha256
+│       ├── BootX64.efi
+│       ├── BootX64.efi.orig
+│       ├── grub.cfg
+│       └── NuclearBootEdk2.sha256
+└── ISO
+    └── ubuntu-24.04.3-live-server-amd64.iso
+
+7 directories, 12 files
+✅ USB1 organized and verified
+✅ Secure USB prepared on /dev/sdb

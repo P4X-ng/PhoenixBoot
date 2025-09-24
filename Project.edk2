@@ -1,0 +1,4 @@
+Project Name: PhoenixBoot
+Overview: This project aims to make a completely safe boot environment free of bootkits and rootkits. It does so via a few different means.
+The central file for an overview is the Makefile in PhoenixGuard/. Eventually we aim to make a standard Universal UEFI that will work on
+any machine, solving the problems of vendor lockin, supply chain compromise, and more! A UUEFI.

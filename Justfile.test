@@ -1,0 +1,96 @@
+# PhoenixGuard Test Orchestrator
+
+# Import shared variables
+import './Justfile.vars'
+
+
+# Show test module help
+help:
+	@echo "🧪 PhoenixGuard Test Module"
+	@echo "============================="
+	@echo ""
+	@echo "Available commands:"
+	@echo "  just test test                  # Run all production tests"
+	@echo "  just test tests                 # Alias for 'test'"
+	@echo "  just test virtual-tests         # QEMU base tests"
+	@echo "  just test tests-secure          # All secure boot tests"
+	@echo "  just test qemu-test             # Main QEMU boot test"
+	@echo "  just test qemu-test-secure-positive # Secure Boot positive test"
+	@echo "  just test qemu-test-secure-strict   # Strict SB test (markers)"
+	@echo "  just test qemu-test-uuefi        # UUEFI application test"
+	@echo "  just test progressive-smoke      # Progressive recovery L1-L2 smoke"
+	@echo "  just test progressive-planfile   # Planfile generation sanity"
+	@echo ""
+
+# --- Umbrella Targets ---
+tests: test
+	@echo "🧪 Running tests (alias for 'test')"
+
+test: virtual-tests tests-secure
+	@echo "🧪 Running all production tests..."
+	@bash scripts/run-staging-tests.sh
+	@echo "✅ All production tests completed"
+
+test-nosudo: qemu-test tests-secure-nosudo
+	@echo "🧪 Running all production tests (no sudo)..."
+	@bash scripts/run-staging-tests.sh
+	@echo "✅ All production tests completed (no sudo)"
+
+# --- Virtualized (QEMU) Test Groups ---
+virtual-tests: qemu-test
+	@echo "🧪 Running virtual tests (QEMU base)"
+
+virtual-tests-secure: qemu-test-secure-positive qemu-test-secure-strict qemu-test-secure-negative-attest
+	@echo "🧪 Running virtual secure tests"
+
+tests-secure: virtual-tests-secure
+	@echo "🧪 Running secure tests"
+
+tests-secure-nosudo: qemu-test-secure-positive qemu-test-secure-strict qemu-test-secure-negative-attest-nosudo
+	@echo "🧪 Running secure tests (no sudo)"
+
+# --- Individual Test Recipes ---
+# Execute full real QEMU boot test
+qemu-test:
+	@echo "🚀 Running production QEMU boot test..."
+	@bash scripts/qemu-test.sh
+
+# Secure Boot positive test using enrolled OVMF VARS (basic marker)
+qemu-test-secure-positive:
+	@echo "🔐 Running Secure Boot positive test..."
+	@bash scripts/qemu-test-secure-positive.sh
+
+# Secure Boot positive test (strict markers: SB and ATTEST)
+qemu-test-secure-strict:
+	@echo "🔐 Running Secure Boot strict test..."
+	@bash scripts/qemu-test-secure-strict.sh
+
+# Secure Boot negative attestation test
+qemu-test-secure-negative-attest:
+	@just build package-esp-neg-attest
+	@echo "🧪 Running Secure Boot negative attestation test..."
+	@bash scripts/qemu-test-secure-negative-attest.sh
+
+# Secure Boot negative attestation test using no-sudo ESP packaging
+qemu-test-secure-negative-attest-nosudo:
+	@just build package-esp-neg-attest-nosudo
+	@echo "🧪 Running Secure Boot negative attestation test (no sudo)..."
+	@bash scripts/qemu-test-secure-negative-attest-nosudo.sh
+
+# QEMU test: UUEFI as BOOTX64.EFI (one-shot on ESP copy)
+qemu-test-uuefi:
+	@echo "🚀 Running UUEFI QEMU test..."
+	@bash scripts/qemu-test-uuefi.sh
+
+# Progressive recovery smoke: L1 scan and L2 build/verify in host-safe mode
+progressive-smoke:
+	@echo "🧪 Progressive smoke: scan and build/verify ESP (no host changes)"
+	@just nuke level1-scan
+	@PG_HOST_OK=0 just nuke level2-esp
+
+# Progressive planfile generation sanity (dry-run)
+progressive-planfile:
+	@echo "🧪 Progressive planfile (dry-run)"
+	@just nuke progressive-dry-run
+	@bash tests/progressive_planfile_check.sh
+	@ls -1 plans/phoenix_progressive_*.json | tail -n1 | xargs -r -I{} sh -c 'echo "Plan:" {}; head -c 200 {} | sed -n "1,20p" || true' 

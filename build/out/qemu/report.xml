@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PhoenixGuard QEMU Boot Test" tests="1" failures="0" time="60">
+  <testcase name="Production Boot Test" classname="PhoenixGuard.Boot">
+  </testcase>
+</testsuite>

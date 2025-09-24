@@ -1,0 +1,91 @@
+# PhoenixGuard Nuclear Boot Workflows
+
+# Import shared variables
+import './Justfile.vars'
+
+
+# Show nuke module help
+help:
+	@echo "☢️  PhoenixGuard Nuclear Boot Module"
+	@echo "====================================="
+	@echo ""
+	@echo "Available commands:"
+	@echo "  just nuke run-qemu                  # Test UUEFI app in QEMU"
+	@echo "  just nuke run-host-once             # Install & one-shot boot UUEFI on host"
+	@echo "  just nuke progressive               # Interactive progressive recovery (safe-by-default)"
+	@echo "  just nuke progressive-dry-run       # Generate planfile only; no changes"
+	@echo "  just nuke level1-scan               # Bootkit detection scan (read-only)"
+	@echo "  just nuke level2-esp                # Build+package ESP; optional host deploy if PG_HOST_OK=1"
+	@echo "  just nuke level3-secure [args]      # Double-kexec secure firmware access"
+	@echo "  just nuke level4-kvm                # KVM Snapshot Jump (requires config)"
+	@echo "  just nuke level5-xen                # Prepare Xen Snapshot Jump assets"
+	@echo "  just nuke level6-hw fw=<file>       # Direct hardware recovery (DANGER)"
+	@echo ""
+
+# QEMU test UUEFI app (uses prepared ESP image)
+run-qemu:
+	@UUEFI_EXPECT="${UUEFI_EXPECT:-UUEFI}" just test qemu-test-uuefi
+
+# Install and one-shot boot UUEFI on host
+run-host-once:
+	@just os host-uuefi-once
+
+# Progressive recovery (interactive)
+progressive:
+	@echo "🚀 Launching progressive recovery (safe-by-default; QEMU-first)"
+	@{{PYTHON}} nuclear-cd-build/iso/recovery/scripts/phoenix_progressive.py
+
+# Progressive recovery (dry run: planfile only)
+progressive-dry-run:
+	@echo "📝 Generating progressive recovery planfile (dry-run)"
+	@PG_DRY_RUN=1 {{PYTHON}} nuclear-cd-build/iso/recovery/scripts/phoenix_progressive.py || true
+
+# Level 1: Detection scan (read-only)
+level1-scan:
+	@bash scripts/scan-bootkits.sh
+
+# Level 2: Package ESP; optional host deploy if PG_HOST_OK=1 and iso argument provided
+level2-esp iso="":
+	@echo "💿 Building ESP image"
+	# Ignore any ambient ISO_PATH to prevent giant ESPs
+	@env -u ISO_PATH sh -c 'if [ -n "{{iso}}" ]; then just build package-esp-iso iso_path="{{iso}}"; else just build package-esp; fi'
+	@just validate verify-esp-robust
+	@if [ "${PG_HOST_OK:-0}" = "1" ]; then \
+		if [ -n "{{iso}}" ]; then \
+			echo "🔧 Host deploy requested (PG_HOST_OK=1): copying ISO to ESP and adding GRUB entry"; \
+			sudo bash scripts/deploy-esp-iso.sh --iso "{{iso}}"; \
+		else \
+			echo "ℹ️  Host deploy skipped: pass iso=/path/to.small.iso to embed & deploy"; \
+		fi; \
+	else \
+		echo "🧪 Host-safe mode: Skipping host ESP modification (set PG_HOST_OK=1 to enable)"; \
+		echo "   Tip: Run 'just iso iso-run-qemu' to interact with the ESP image in QEMU"; \
+	fi
+
+# Level 3: Double-kexec secure firmware access (requires root)
+level3-secure +args="":
+	@echo "🔐 Secure firmware access via double-kexec"
+	@echo "   This temporarily unlocks lockdown, runs the operation, then re-locks."
+	@sudo bash nuclear-cd-build/iso/recovery/scripts/secure-firmware-access.sh {{args}}
+
+# Level 4: KVM recovery environment (requires config at /etc/phoenixguard/kvm-snapshot.conf)
+level4-kvm:
+	@echo "🚀 Launching KVM Snapshot Jump (requires /etc/phoenixguard/kvm-snapshot.conf)"
+	@sudo bash resources/kvm/kvm-snapshot-jump.sh
+
+# Level 5: Xen Snapshot Jump preparation
+level5-xen dom0_vmlinuz="" dom0_initrd="" esp="/boot/efi" uuid="" dom0_root="":
+	@if [ -z "{{dom0_vmlinuz}}" ] || [ -z "{{dom0_initrd}}" ]; then \
+		echo "Usage: just nuke level5-xen dom0_vmlinuz=/boot/vmlinuz-<ver> dom0_initrd=/boot/initrd.img-<ver> [esp=/boot/efi] [uuid=<DOM0-ROOT-UUID>] [dom0_root=/dev/nvme0n1p2]"; \
+		exit 1; \
+	fi
+	@sudo bash scripts/install_xen_snapshot_jump.sh --esp '{{esp}}' --dom0-vmlinuz '{{dom0_vmlinuz}}' --dom0-initrd '{{dom0_initrd}}' {{uuid && ("--uuid '" + uuid + "'") || ""}} {{dom0_root && ("--dom0-root '" + dom0_root + "'") || ""}}
+
+# Level 6: Direct hardware recovery (DANGER)
+level6-hw fw="" verify_only="0" verbose="0":
+	@if [ -z "{{fw}}" ]; then echo "Usage: just nuke level6-hw fw=drivers/G615LPAS.325 [verify_only=1] [verbose=1]"; exit 1; fi
+	@echo "💥 DANGER: Direct SPI flash recovery! Proceed with extreme caution."
+	@CMD="bash nuclear-cd-build/iso/recovery/scripts/hardware-recovery.sh --firmware '{{fw}}'"; \
+	[ "{{verify_only}}" = "1" ] && CMD="$CMD --verify-only" || true; \
+	[ "{{verbose}}" = "1" ] && CMD="$CMD -v" || true; \
+	echo "Running: $CMD"; eval "$CMD"

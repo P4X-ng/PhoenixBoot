@@ -1,0 +1,14 @@
+[Unit]
+Description=PhoenixGuard KVM Snapshot Jump - Enhanced Recovery
+After=basic.target network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStartPre=/opt/phoenixguard/tools/kvm-enhanced-setup.sh
+ExecStart=/usr/local/sbin/kvm-snapshot-jump.sh
+Restart=no
+User=root
+Environment=DISPLAY=:0
+[Install]
+WantedBy=multi-user.target

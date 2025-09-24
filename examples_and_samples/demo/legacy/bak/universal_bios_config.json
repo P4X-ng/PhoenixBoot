@@ -1,0 +1,171 @@
+{
+  "format_version": "1.0",
+  "generated_date": "2025-08-24T23:19:44.490405",
+  "source_hardware": "ROG Strix G16 G615LP",
+  "target": "Universal BIOS Implementation",
+  "asus_rog_config": {
+    "vendor_id": "ASUS",
+    "product_line": "ROG_GAMING",
+    "ui_animations": {
+      "variable": "AsusAnimationSetupConfig",
+      "guid": "607005d5-3f75-4b2e-98f0-85ba66797a3e",
+      "optimal_value": "0x00",
+      "current_value": "0x000100",
+      "description": "BIOS UI animations control"
+    },
+    "myasus_integration": {
+      "variable": "MyasusAutoInstall",
+      "guid": "607005d5-3f75-4b2e-98f0-85ba66797a3e",
+      "optimal_value": "0x00",
+      "current_value": "0x00",
+      "description": "MyASUS software auto-installation"
+    },
+    "armoury_crate": {
+      "variable": "ArmouryCrateStaticField",
+      "guid": "607005d5-3f75-4b2e-98f0-85ba66797a3e",
+      "size": 256,
+      "current_config": "ACSF header with gaming profiles",
+      "description": "ROG gaming configuration blob"
+    },
+    "camera_security": {
+      "hash_variable": "AsusCameraHashValueUpdate",
+      "device_variable": "PreviousAsusCameraDevice",
+      "hash_guid": "0e0bd45b-349a-4e49-a402-d4b8819c7d10",
+      "device_guid": "607005d5-3f75-4b2e-98f0-85ba66797a3e",
+      "current_hash": "37f9dd4188408dab...",
+      "security_level": "hash_protected",
+      "description": "ROG camera privacy protection"
+    },
+    "device_persistence": {
+      "touchpad": {
+        "variable": "PreviousAsusTouchPadDevice",
+        "current_id": "000828190201050000",
+        "description": "Touchpad device identification"
+      }
+    },
+    "acpi_gnvs": {
+      "variable": "AsusGnvsVariable",
+      "guid": "d763220a-8214-4f10-8658-de40ef1769e1",
+      "current_value": "0x61786018",
+      "description": "ACPI Global NVS Variables"
+    },
+    "cloud_recovery": {
+      "variable": "CloudRecoverySupport",
+      "guid": "607005d5-3f75-4b2e-98f0-85ba66797a3e",
+      "supported": true,
+      "current_value": "0x01",
+      "description": "ASUS Cloud Recovery Service"
+    }
+  },
+  "intel_platform_config": {
+    "vendor_id": "Intel",
+    "chipset_support": "12th_gen_and_newer",
+    "connectivity": {
+      "wifi_variables": [
+        "CnvUefiWlanUATS",
+        "UefiCnvWlanWBEM",
+        "UefiCnvWlanMPCC",
+        "WRDS",
+        "WRDD",
+        "WGDS",
+        "EWRD",
+        "WAND",
+        "SPLC"
+      ],
+      "bluetooth_variables": [
+        "IntelUefiCnvBtPpagSupport",
+        "IntelUefiCnvBtBiQuadFilterBypass",
+        "SADS",
+        "BRDS",
+        "GPC"
+      ],
+      "description": "Intel CNVi WiFi/Bluetooth integration"
+    },
+    "storage": {
+      "vmd_support": {
+        "variable": "IntelVmdDeviceInfo",
+        "size": 1224,
+        "description": "Intel VMD for NVMe RAID"
+      },
+      "rst_features": {
+        "variable": "IntelRstFeatures",
+        "description": "Intel Rapid Storage Technology"
+      }
+    }
+  },
+  "boot_config": {
+    "optimization": {
+      "fast_boot": true,
+      "skip_animations": true,
+      "parallel_init": true,
+      "description": "Optimized for fastest boot time"
+    },
+    "boot_entries": {
+      "recommended_order": [
+        "NVMe_Primary",
+        "USB_Recovery",
+        "Network_Boot",
+        "Legacy_Fallback"
+      ],
+      "description": "Universal boot entry prioritization"
+    },
+    "security_boot": {
+      "secure_boot": "conditional",
+      "custom_keys": "supported",
+      "recovery_keys": "phoenix_guard",
+      "description": "Flexible secure boot with recovery options"
+    }
+  },
+  "security_config": {
+    "secure_boot": {
+      "mode": "custom",
+      "allow_user_keys": true,
+      "phoenix_guard_integration": true,
+      "recovery_bypass": "hardware_programmer"
+    },
+    "firmware_protection": {
+      "write_protection": "conditional",
+      "rollback_protection": "version_based",
+      "bootkit_detection": "phoenix_guard"
+    },
+    "privacy_controls": {
+      "camera_protection": "hash_verification",
+      "microphone_control": "hardware_switch",
+      "telemetry": "user_controlled"
+    }
+  },
+  "performance_config": {
+    "cpu_optimization": {
+      "boost_control": "dynamic",
+      "thermal_management": "balanced",
+      "power_profile": "adaptive"
+    },
+    "memory_optimization": {
+      "training_mode": "fast_boot",
+      "stability_testing": "minimal",
+      "overclocking_support": "conservative"
+    },
+    "gaming_optimization": {
+      "game_mode": "auto_detect",
+      "latency_reduction": "enabled",
+      "resource_prioritization": "foreground_app"
+    }
+  },
+  "implementation_guide": {
+    "build_system": {
+      "base_framework": "EDK2_UEFI",
+      "phoenix_guard_integration": "required",
+      "hardware_detection": "runtime_enumeration"
+    },
+    "variable_management": {
+      "storage_backend": "nvram_with_backup",
+      "validation": "cryptographic_signatures",
+      "fallback_defaults": "cloud_configuration_store"
+    },
+    "deployment_strategy": {
+      "target_audience": "advanced_users",
+      "installation_method": "phoenix_guard_recovery",
+      "rollback_mechanism": "dual_bios_design"
+    }
+  }
+}

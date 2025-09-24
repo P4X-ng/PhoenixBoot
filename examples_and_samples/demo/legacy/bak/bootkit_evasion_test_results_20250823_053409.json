@@ -1,0 +1,100 @@
+{
+  "session_timestamp": "2025-08-23T05:34:09.289018",
+  "evasion_tests": [
+    {
+      "name": "legitimate_masquerading",
+      "description": "Bootkit disguised as legitimate Windows/Microsoft files",
+      "timestamp": "2025-08-23T05:34:09.289060",
+      "techniques": [
+        {
+          "technique": "file_masquerading",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Security/Microsoft_Defender_Update.efi",
+          "size": 2448,
+          "description": "Fake Microsoft Defender update"
+        },
+        {
+          "technique": "file_masquerading",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Security/Windows_Firmware_Manager.efi",
+          "size": 2448,
+          "description": "Fake Windows firmware manager"
+        },
+        {
+          "technique": "file_masquerading",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Security/Intel_Boot_Guard_Helper.efi",
+          "size": 2448,
+          "description": "Fake Intel Boot Guard component"
+        },
+        {
+          "technique": "file_masquerading",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Security/ASUS_UEFI_Utility.efi",
+          "size": 2448,
+          "description": "Fake ASUS UEFI utility"
+        },
+        {
+          "technique": "file_masquerading",
+          "file": "/boot/efi/EFI/Microsoft/Boot/Security/Secure_Boot_Certificate.der",
+          "size": 2448,
+          "description": "Fake Secure Boot certificate"
+        }
+      ],
+      "detection_results": {}
+    },
+    {
+      "name": "timestamp_manipulation",
+      "description": "Modify file timestamps to match legitimate system files",
+      "timestamp": "2025-08-23T05:34:09.289228",
+      "techniques": [
+        {
+          "technique": "timestamp_cloning",
+          "source_file": "/boot/efi/EFI/ubuntu/grubx64.efi",
+          "target_file": "/boot/efi/EFI/ubuntu/grub_recovery.efi",
+          "cloned_timestamp": 1755940668.0
+        }
+      ]
+    },
+    {
+      "name": "size_mimicking",
+      "description": "Pad bootkit to match size of legitimate files",
+      "timestamp": "2025-08-23T05:34:09.289313",
+      "techniques": [
+        {
+          "technique": "size_padding",
+          "original_size": 1625,
+          "target_size": 2660232,
+          "padded_file": "/boot/efi/EFI/ubuntu/grub_extension.efi",
+          "padding_added": 2658607
+        }
+      ]
+    },
+    {
+      "name": "hash_collision_attempts",
+      "description": "Attempt to create files with similar hash prefixes",
+      "timestamp": "2025-08-23T05:34:09.293770",
+      "techniques": []
+    }
+  ],
+  "phoenixguard_detection": {
+    "test_name": "phoenixguard_evasion_detection",
+    "timestamp": "2025-08-23T05:34:09.502815",
+    "scan_output": "[05:34:09] INFO: Starting PhoenixGuard comprehensive testing...\n[05:34:09] INFO: Creating backup of ESP components...\n[05:34:09] INFO: Backup completed\n[05:34:09] INFO: Testing PhoenixGuard deployment...\n[05:34:09] INFO: \u2705 PhoenixGuard deployment test passed - all files present\n[05:34:09] INFO: Testing Secure Boot status...\n[05:34:09] INFO: \u2705 Secure Boot is enabled\n[05:34:09] INFO: Testing GRUB corruption detection...\n[05:34:09] INFO: \u26a0\ufe0f No GRUB corruption detected\n[05:34:09] INFO: Testing bootkit detection...\n[05:34:09] INFO: \u2705 Bootkit detection test passed\n[05:34:09] INFO: Test report saved to: phoenixguard_test_report_20250823_053409.json\n\n============================================================\nPHOENIXGUARD TEST SUMMARY\n============================================================\nTests Passed: 4\nTests Failed: 0\nTotal Tests: 4\nReport: phoenixguard_test_report_20250823_053409.json\n============================================================\n[05:34:09] INFO: Testing completed!\n",
+    "detection_success": false,
+    "exit_code": 0,
+    "bootkit_scan": {
+      "scan_timestamp": "2025-08-23T09:29:03.869296",
+      "threats_detected": [],
+      "modifications_found": [
+        {
+          "type": "VERSION_MISMATCH",
+          "severity": "HIGH",
+          "details": "BIOS version changed: expected AS.325, got G615LP.303",
+          "risk_indicators": [
+            "version_rollback",
+            "unauthorized_update"
+          ]
+        }
+      ],
+      "risk_level": "MEDIUM",
+      "recommended_action": "INVESTIGATE"
+    }
+  }
+}

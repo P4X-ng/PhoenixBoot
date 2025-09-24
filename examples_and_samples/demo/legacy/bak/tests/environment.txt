@@ -1,0 +1,7 @@
+🔧 Hardware Testing Environment Setup Complete
+ESP Mount: /boot/efi (/dev/nvme0n1p2)
+Secure Boot: ENABLED
+Bluetooth: DISABLED (soft blocked)
+Podman: Available at /usr/bin/podman
+NuclearBootEdk2.efi: Present (13376 bytes)
+

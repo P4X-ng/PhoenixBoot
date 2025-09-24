@@ -1,0 +1,17 @@
+{
+  "scan_timestamp": "2025-08-20T10:20:37.960949",
+  "threats_detected": [],
+  "modifications_found": [
+    {
+      "type": "VERSION_MISMATCH",
+      "severity": "HIGH",
+      "details": "BIOS version changed: expected AS.325, got G615LP.303",
+      "risk_indicators": [
+        "version_rollback",
+        "unauthorized_update"
+      ]
+    }
+  ],
+  "risk_level": "MEDIUM",
+  "recommended_action": "INVESTIGATE"
+}

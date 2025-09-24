@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PhoenixGuard UUEFI Test" tests="1" failures="0" time="60">
+  <testcase name="UUEFI Smoke" classname="PhoenixGuard.UUEFI">
+  </testcase>
+</testsuite>

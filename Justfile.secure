@@ -1,0 +1,115 @@
+# PhoenixGuard Security Orchestrator
+
+# Import shared variables
+import './Justfile.vars'
+
+
+# Show security module help
+help:
+	@echo "🔐 PhoenixGuard Security Module"
+	@echo "=============================="
+	@echo ""
+	@echo "Available commands:"
+	@echo "  just secure keygen                # Generate Secure Boot keypairs (RSA-4096)"
+	@echo "  just secure make-auth             # Create ESL and AUTH for PK/KEK/db"
+	@echo "  just secure package-esp-enroll    # Package enrollment ESP"
+	@echo "  just secure enroll-secureboot     # Auto-enroll custom SB keys in OVMF"
+	@echo "  just secure qemu-run-secure-ui    # Launch QEMU GUI for SB config"
+	@echo ""
+	@echo "MOK (Machine Owner Key) Management:"
+	@echo "  just secure mok-status            # Show Secure Boot & MOK status"
+	@echo "  just secure mok-verify            # Verify MOK certificate details"
+	@echo "  just secure mok-find-enrolled     # Match local certs to enrolled MOKs"
+	@echo "  just secure enroll-mok            # Enroll PhoenixGuard MOK certificate"
+	@echo "  just secure mok-new               # Generate a fresh PGMOK keypair"
+	@echo "  just secure mok-enroll-new        # Generate + enroll PGMOK (reboot to complete)"
+	@echo "  just secure keys-centralize       # Move keys to canonical locations"
+	@echo "  just secure keys-prune            # Backup + remove legacy key locations"
+	@echo "  just secure mok-inventory         # JSON inventory of keys and enrollment"
+	@echo ""
+	@echo "Conversions:"
+	@echo "  just secure der-extract path=...  # Convert DER/PKCS#12 → cert.pem/key.pem"
+	@echo ""
+
+# Generate Secure Boot keypairs (RSA-4096) and X.509 certs
+keygen:
+	@mkdir -p keys
+	@bash scripts/generate-sb-keys.sh
+
+# Create ESL and AUTH for PK/KEK/db using efitools
+make-auth: keygen
+	@mkdir -p {{OUT_DIR}}/securevars
+	@bash scripts/create-auth-files.sh
+
+# Package enrollment ESP that auto-runs KeyEnrollEdk2 to set PK/KEK/db
+package-esp-enroll: make-auth
+	@bash scripts/esp-package-enroll.sh
+
+# Package Secure Boot enrollment ESP without sudo (uses mtools)
+package-esp-enroll-nosudo:
+	@bash scripts/esp-package-enroll-nosudo.sh
+
+# Auto-enroll custom Secure Boot keys in OVMF via QEMU
+enroll-secureboot: package-esp-enroll
+	@echo "🚀 Enrolling keys into OVMF..."
+	@bash scripts/enroll-secureboot.sh
+
+# Auto-enroll custom Secure Boot keys in OVMF via QEMU (no sudo)
+enroll-secureboot-nosudo: package-esp-enroll-nosudo
+	@echo "🚀 Enrolling keys into OVMF (no sudo)..."
+	@bash scripts/enroll-secureboot-nosudo.sh
+
+# Launch QEMU GUI with enrolled VARS to enable Secure Boot in OVMF UI
+qemu-run-secure-ui:
+	@echo "🟢 Launching QEMU GUI to enable Secure Boot..."
+	@bash scripts/qemu-run-secure-ui.sh
+
+# --- MOK (Machine Owner Key) Management ---
+# Show Secure Boot state, enrolled MOKs, and pending changes
+mok-status:
+	@bash scripts/mok-status.sh
+
+# Verify MOK certificate details (PEM and DER if present)
+mok-verify:
+	@bash scripts/mok-verify.sh "{{MOK_CERT_PEM}}" "{{MOK_CERT_DER}}"
+	@echo "Tip: To reuse an already-enrolled MOK without reboot, try:"
+	@echo "      eval \"$(bash scripts/mok-pick-existing.sh)\"  # sets KMOD_CERT/KMOD_KEY"
+
+# Find which of our local certs are already enrolled as MOKs (to avoid reboot)
+mok-find-enrolled:
+	@bash scripts/mok-find-enrolled.sh
+
+# Generate a new PhoenixGuard MOK keypair for module signing (PGMOK)
+mok-new name="PGMOK" cn="PhoenixGuard Module Key":
+	@bash scripts/mok-new.sh "{{name}}" "{{cn}}"
+
+# Enroll PhoenixGuard MOK certificate for kernel module signing
+enroll-mok:
+	@bash scripts/enroll-mok.sh "{{MOK_CERT_PEM}}" "{{MOK_CERT_DER}}" {{MOK_DRY_RUN}}
+
+# Centralize keys into out/keys/mok and out/keys/secure_boot
+keys-centralize:
+	@bash scripts/keys-centralize.sh
+
+# Centralize and prune legacy locations (with backup)
+keys-prune:
+	@bash scripts/keys-centralize.sh --prune
+
+# Inventory keys and enrollment status (JSON)
+mok-inventory:
+	@bash scripts/keys-inventory.sh
+
+# Generate PGMOK and enroll it (requires reboot to complete)
+mok-enroll-new name="PGMOK" cn="PhoenixGuard Module Key":
+	@bash scripts/mok-new.sh "{{name}}" "{{cn}}"
+	@bash scripts/enroll-mok.sh "{{OUT_DIR}}/keys/{{name}}.crt" "{{OUT_DIR}}/keys/{{name}}.der" {{MOK_DRY_RUN}}
+
+# Remove PhoenixGuard MOK certificate (requires reboot to complete)
+unenroll-mok:
+	@bash scripts/unenroll-mok.sh "{{MOK_CERT_DER}}"
+
+# --- Conversions ---
+# Convert DER/PKCS#12 bundle into PEM cert and key (best-effort detection)
+der-extract path="" out_dir="{{OUT_DIR}}/keys" name="PGMOK":
+	@if [ -z "{{path}}" ]; then echo "Usage: just secure der-extract path=/path/to/file.der [out_dir=out/keys] [name=PGMOK]"; exit 1; fi
+	@bash scripts/der-extract.sh "{{path}}" "{{out_dir}}" "{{name}}"

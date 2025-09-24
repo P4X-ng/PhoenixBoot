@@ -1,0 +1,64 @@
+# PhoenixGuard Build Orchestrator
+
+# Import shared variables
+import './Justfile.vars'
+
+
+# Show build module help
+help:
+	@echo "🔨 PhoenixGuard Build Module"
+	@echo "============================"
+	@echo ""
+	@echo "Available commands:"
+	@echo "  just build setup                # Bootstrap toolchain & environment"
+	@echo "  just build build                # Build production artifacts from staging/"
+	@echo "  just build package-esp          # Package bootable ESP image"
+	@echo "  just build package-esp-nosudo   # Package ESP without sudo (mtools)"
+	@echo "  just build package-esp-iso      # Package ESP with ISO support"
+	@echo "  just build package-esp-neg-attest # Create negative attestation ESP"
+	@echo ""
+
+# Bootstrap toolchain and environment
+setup:
+	@echo "🔧 Bootstrapping PhoenixGuard toolchain..."
+	@mkdir -p {{OUT_DIR}}/setup
+	@bash scripts/toolchain-check.sh
+
+# Build production artifacts from staging/
+build:
+	@echo "🔨 Building production artifacts from staging/..."
+	@mkdir -p {{OUT_DIR}}/staging
+	@bash scripts/build-production.sh
+
+# Package bootable EFI System Partition
+package-esp:
+	@bash scripts/esp-package.sh
+
+# Package bootable ESP without sudo (uses mtools)
+package-esp-nosudo:
+	@bash scripts/esp-package-nosudo.sh
+
+# Convenience wrapper: accept positional iso_path or ISO_PATH env, then call package-esp
+package-esp-iso iso_path="":
+	#!/usr/bin/env bash
+	set -euo pipefail
+	ISO_FROM_ARG='{{iso_path}}'
+	ISO=""
+	if [ -n "${ISO_FROM_ARG}" ]; then
+		ISO="${ISO_FROM_ARG}"
+	elif [ -n "${ISO_PATH:-}" ]; then
+		ISO="${ISO_PATH}"
+	fi
+	if [ -z "${ISO}" ]; then
+		echo "Usage: just package-esp-iso /path/to.iso  (or)  ISO_PATH=/path/to.iso just package-esp-iso"; exit 1
+	fi
+	export ISO_PATH="${ISO}"
+	bash scripts/esp-package.sh
+
+# Package a negative-attestation ESP by corrupting the sidecar
+package-esp-neg-attest:
+	@bash scripts/package-esp-neg-attest.sh
+
+# Package a negative-attestation ESP without sudo by overwriting hash via mtools
+package-esp-neg-attest-nosudo:
+	@bash scripts/package-esp-neg-attest-nosudo.sh

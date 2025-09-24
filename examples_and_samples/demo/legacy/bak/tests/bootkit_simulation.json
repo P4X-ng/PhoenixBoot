@@ -1,0 +1,77 @@
+🎯 Starting Bootkit Attack Simulation for PhoenixGuard Testing
+Timestamp: 2025-08-24T23:03:23Z
+
+🦠 Advanced Bootkit Sample Generator
+====================================
+⚠️  FOR DEFENSIVE SECURITY RESEARCH ONLY!
+
+🦠 Creating LoJax-inspired bootkit sample...
+🦠 Creating MosaicRegressor-inspired bootkit sample...
+🦠 Creating MoonBounce-inspired bootkit sample...
+🦠 Creating ESPecter-inspired bootkit sample...
+
+🔬 Generated 4 realistic bootkit samples:
+  📁 lojax_inspired.bin
+     Size: 1,423 bytes
+     SHA256: c86f0a07d356f940...
+
+  📁 mosaicregressor_inspired.bin
+     Size: 1,528 bytes
+     SHA256: 3bdccaa593601bbe...
+
+  📁 moonbounce_inspired.bin
+     Size: 1,625 bytes
+     SHA256: 74bd043bfe468d1f...
+
+  📁 especter_inspired.bin
+     Size: 1,797 bytes
+     SHA256: 62d46921313f9ee9...
+
+✅ Sample generation complete!
+📁 Samples saved to: realistic_bootkit_samples/
+🔥 Advanced Bootkit Attack Simulation Starting...
+This will simulate various bootkit attack scenarios to test PhoenixGuard
+
+[19:03:46] INFO: Backup created: /tmp/bootkit_sim_backup_1756076626
+[19:03:46] INFO: 🎯 Simulating Persistence Bootkit Attack...
+[19:03:46] INFO: ✅ Persistence bootkit simulation completed
+[19:03:46] INFO: 🥷 Simulating Stealth Bootkit Attack...
+[19:03:46] INFO: ✅ Stealth bootkit simulation completed
+[19:03:46] INFO: 🎭 Simulating Multi-Stage Bootkit Attack...
+[19:03:46] INFO: ✅ Multi-stage bootkit simulation completed
+[19:03:46] INFO: 🛡️ Testing PhoenixGuard Response to Attacks...
+[19:03:46] INFO: Running PhoenixGuard bootkit scan...
+[19:03:46] INFO: ✅ PhoenixGuard detected 0 threats
+[19:03:46] INFO: 🧹 Cleaning up attack simulation...
+[19:03:46] INFO: Removed: /boot/efi/EFI/ubuntu/grubx64_malicious.efi
+[19:03:46] INFO: Removed: /boot/efi/EFI/.hidden_bootkit
+[19:03:46] INFO: Removed: /boot/efi/EFI/Microsoft/Boot
+[19:03:46] INFO: Removed: /boot/efi/EFI/temp
+[19:03:46] INFO: ✅ Cleanup completed
+Traceback (most recent call last):
+  File "/home/punk/Projects/edk2-bootkit-defense/PhoenixGuard/advanced_attack_simulation.py", line 425, in <module>
+    main()
+  File "/home/punk/Projects/edk2-bootkit-defense/PhoenixGuard/advanced_attack_simulation.py", line 415, in main
+    simulator.generate_attack_report()
+  File "/home/punk/Projects/edk2-bootkit-defense/PhoenixGuard/advanced_attack_simulation.py", line 348, in generate_attack_report
+    json.dump(self.attack_results, f, indent=2)
+  File "/usr/lib/python3.12/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.12/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/usr/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.12/json/encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "/usr/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.12/json/encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "/usr/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.12/json/encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type bytes is not JSON serializable

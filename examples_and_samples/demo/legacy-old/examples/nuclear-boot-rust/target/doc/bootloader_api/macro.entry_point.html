@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Defines the entry point function."><title>entry_point in bootloader_api - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-069232aa.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="bootloader_api" data-themes="" data-resource-suffix="" data-rustdoc-version="1.91.0-nightly (898aff704 2025-08-14)" data-channel="nightly" data-search-js="search-281b7574.js" data-settings-js="settings-5514c975.js" ><script src="../static.files/storage-68b7e25d.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-eebb9057.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-32bb7600.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../bootloader_api/index.html">bootloader_<wbr>api</a><span class="version">0.11.11</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">entry_<wbr>point</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#configuration" title="Configuration">Configuration</a></li><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#implementation-notes" title="Implementation Notes">Implementation Notes</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate bootloader_<wbr>api</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">bootloader_api</a></div><h1>Macro <span class="macro">entry_point</span><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/bootloader_api/lib.rs.html#111-140">Source</a> </span></div><pre class="rust item-decl"><code>macro_rules! entry_point {
+    ($path:path) =&gt; { ... };
+    ($path:path, config = $config:expr) =&gt; { ... };
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Defines the entry point function.</p>
+<p>The function must have the signature <code>fn(&amp;'static mut BootInfo) -&gt; !</code>.</p>
+<p>This macro just creates a function named <code>_start</code>, which the linker will use as the entry
+point. The advantage of using this macro instead of providing an own <code>_start</code> function is
+that the macro ensures that the function and argument types are correct.</p>
+<h3 id="configuration"><a class="doc-anchor" href="#configuration">§</a>Configuration</h3>
+<p>This macro supports an optional second parameter to configure how the bootloader should
+boot the kernel. The second parameter needs to be given as <code>config = ...</code> and be of type
+<a href="config/struct.BootloaderConfig.html" title="struct bootloader_api::config::BootloaderConfig"><code>&amp;BootloaderConfig</code></a>. If not given, the configuration defaults to
+<a href="config/struct.BootloaderConfig.html#method.new_default" title="associated function bootloader_api::config::BootloaderConfig::new_default"><code>BootloaderConfig::new_default</code></a>.</p>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3>
+<ul>
+<li>
+<p>With default configuration:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#![no_std]
+#![no_main]
+
+</span><span class="macro">bootloader_api::entry_point!</span>(main);
+
+<span class="kw">fn </span>main(bootinfo: <span class="kw-2">&amp;</span><span class="lifetime">'static </span><span class="kw-2">mut </span>bootloader_api::BootInfo) -&gt; ! {
+    <span class="kw">loop </span>{}
+}
+
+<span class="attr">#[panic_handler]
+</span><span class="kw">fn </span>panic(_info: <span class="kw-2">&amp;</span>core::panic::PanicInfo) -&gt; ! {
+    <span class="kw">loop </span>{}
+}
+</code></pre></div>
+<p>The name of the entry point function does not matter. For example, instead of <code>main</code>, we
+could also name it <code>fn my_entry_point(...) -&gt; !</code>. We would then need to specify
+<code>entry_point!(my_entry_point)</code> of course.</p>
+</li>
+<li>
+<p>With custom configuration:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#![no_std]
+#![no_main]
+
+</span><span class="kw">use </span>bootloader_api::{entry_point, BootloaderConfig};
+ 
+<span class="kw">pub static </span>BOOTLOADER_CONFIG: BootloaderConfig = {
+    <span class="kw">let </span><span class="kw-2">mut </span>config = BootloaderConfig::new_default();
+    config.kernel_stack_size = <span class="number">90 </span>* <span class="number">1024</span>;
+    config
+};
+
+<span class="macro">entry_point!</span>(main, config = <span class="kw-2">&amp;</span>BOOTLOADER_CONFIG);
+
+<span class="kw">fn </span>main(bootinfo: <span class="kw-2">&amp;</span><span class="lifetime">'static </span><span class="kw-2">mut </span>bootloader_api::BootInfo) -&gt; ! {
+    <span class="kw">loop </span>{}
+}
+
+<span class="attr">#[panic_handler]
+</span><span class="kw">fn </span>panic(_info: <span class="kw-2">&amp;</span>core::panic::PanicInfo) -&gt; ! {
+    <span class="kw">loop </span>{}
+}
+</code></pre></div>
+</li>
+</ul>
+<h3 id="implementation-notes"><a class="doc-anchor" href="#implementation-notes">§</a>Implementation Notes</h3>
+<ul>
+<li><strong>Start function:</strong> The <code>entry_point</code> macro generates a small wrapper function named
+<code>_start</code> (without name mangling) that becomes the actual entry point function of the
+executable. This function doesn’t do anything itself, it just calls into the function
+that is provided as macro argument. The purpose of this function is to use the correct
+ABI and parameter types required by this crate. A user-provided <code>_start</code> function could
+silently become incompatible on dependency updates since the Rust compiler cannot
+check the signature of custom entry point functions.</li>
+<li><strong>Configuration:</strong> Behind the scenes, the configuration struct is serialized using
+<a href="config/struct.BootloaderConfig.html#method.serialize" title="method bootloader_api::config::BootloaderConfig::serialize"><code>BootloaderConfig::serialize</code></a>. The resulting byte
+array is then stored as a static variable annotated with
+<code>#[link_section = ".bootloader-config"]</code>, which instructs the Rust compiler to store it
+in a special section of the resulting ELF executable. From there, the bootloader will
+automatically read it when loading the kernel.</li>
+</ul>
+</div></details></section></div></main></body></html>

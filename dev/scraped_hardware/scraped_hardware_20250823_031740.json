@@ -1,0 +1,268 @@
+[
+  {
+    "hardware_id": "ASUS_ROG_Strix_G15_G513",
+    "manufacturer": "ASUS",
+    "model": "ROG Strix G15 G513",
+    "bios_version": "G513IE.315",
+    "uefi_variables": {
+      "AsusAnimationSetupConfig": {
+        "size": 7,
+        "category": "vendor_specific"
+      },
+      "MyasusAutoInstall": {
+        "size": 5,
+        "category": "vendor_specific"
+      },
+      "ArmouryCrateStaticField": {
+        "size": 256,
+        "category": "vendor_specific"
+      }
+    },
+    "hidden_features": [
+      "Advanced CPU overclocking options",
+      "Memory timing controls",
+      "Fan curve customization",
+      "RGB lighting effects"
+    ],
+    "source_url": "https://www.asus.com/support/",
+    "scraped_at": "2025-08-23 03:17:40.371000",
+    "confidence_score": 0.95,
+    "compatibility_score": 0.035,
+    "feature_importance": 3.3,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "ASUS_TUF_Gaming_A15_FA507",
+    "manufacturer": "ASUS",
+    "model": "TUF Gaming A15 FA507",
+    "bios_version": "FA507RM.308",
+    "uefi_variables": {
+      "AsusGnvsVariable": {
+        "size": 12,
+        "category": "vendor_specific"
+      },
+      "TufGamingProfile": {
+        "size": 64,
+        "category": "vendor_specific"
+      }
+    },
+    "hidden_features": [
+      "Performance mode switching",
+      "Battery optimization settings"
+    ],
+    "source_url": "https://www.asus.com/support/",
+    "scraped_at": "2025-08-23 03:17:40.371006",
+    "confidence_score": 0.87,
+    "compatibility_score": 0.02,
+    "feature_importance": 2.0,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "Lenovo_ThinkPad_X1_Carbon_Gen9",
+    "manufacturer": "Lenovo",
+    "model": "ThinkPad X1 Carbon Gen 9",
+    "bios_version": "N32ET75W",
+    "uefi_variables": {
+      "LenovoSecurityChip": {
+        "size": 32,
+        "category": "vendor_specific"
+      },
+      "ThinkPadPowerManagement": {
+        "size": 16,
+        "category": "vendor_specific"
+      }
+    },
+    "hidden_features": [
+      "Enterprise security settings",
+      "Advanced power management",
+      "TPM configuration options"
+    ],
+    "source_url": "https://support.lenovo.com/",
+    "scraped_at": "2025-08-23 03:17:40.371050",
+    "confidence_score": 0.91,
+    "compatibility_score": 0.025,
+    "feature_importance": 2.3,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "Generic_Intel_Z690_Chipset",
+    "manufacturer": "Various",
+    "model": "Intel Z690 Chipset Systems",
+    "bios_version": "Various",
+    "uefi_variables": {
+      "IntelMESettings": {
+        "size": 128,
+        "category": "vendor_specific"
+      },
+      "OverclockingProfiles": {
+        "size": 512,
+        "category": "performance"
+      },
+      "SecureBootCustomKeys": {
+        "size": 2048,
+        "category": "security"
+      }
+    },
+    "hidden_features": [
+      "Intel ME disable options",
+      "Advanced overclocking controls",
+      "Custom SecureBoot key management",
+      "Firmware TPM settings"
+    ],
+    "source_url": "https://linux-hardware.org/",
+    "scraped_at": "2025-08-23 03:17:40.421299",
+    "confidence_score": 0.82,
+    "compatibility_score": 0.035,
+    "feature_importance": 3.3,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "Lenovo_ThinkPad_X1_Carbon_Gen9",
+    "manufacturer": "Lenovo",
+    "model": "ThinkPad X1 Carbon Gen 9",
+    "bios_version": "N32ET75W",
+    "uefi_variables": {
+      "LenovoSecurityChip": {
+        "size": 32,
+        "category": "vendor_specific"
+      },
+      "ThinkPadPowerManagement": {
+        "size": 16,
+        "category": "vendor_specific"
+      }
+    },
+    "hidden_features": [
+      "Enterprise security settings",
+      "Advanced power management",
+      "TPM configuration options"
+    ],
+    "source_url": "https://forums.lenovo.com/",
+    "scraped_at": "2025-08-23 03:17:40.671013",
+    "confidence_score": 0.91,
+    "compatibility_score": 0.025,
+    "feature_importance": 2.3,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "ASUS_ROG_Strix_G15_G513",
+    "manufacturer": "ASUS",
+    "model": "ROG Strix G15 G513",
+    "bios_version": "G513IE.315",
+    "uefi_variables": {
+      "AsusAnimationSetupConfig": {
+        "size": 7,
+        "category": "vendor_specific"
+      },
+      "MyasusAutoInstall": {
+        "size": 5,
+        "category": "vendor_specific"
+      },
+      "ArmouryCrateStaticField": {
+        "size": 256,
+        "category": "vendor_specific"
+      }
+    },
+    "hidden_features": [
+      "Advanced CPU overclocking options",
+      "Memory timing controls",
+      "Fan curve customization",
+      "RGB lighting effects"
+    ],
+    "source_url": "https://rog.asus.com/forum/",
+    "scraped_at": "2025-08-23 03:17:40.504649",
+    "confidence_score": 0.95,
+    "compatibility_score": 0.035,
+    "feature_importance": 3.3,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "ASUS_TUF_Gaming_A15_FA507",
+    "manufacturer": "ASUS",
+    "model": "TUF Gaming A15 FA507",
+    "bios_version": "FA507RM.308",
+    "uefi_variables": {
+      "AsusGnvsVariable": {
+        "size": 12,
+        "category": "vendor_specific"
+      },
+      "TufGamingProfile": {
+        "size": 64,
+        "category": "vendor_specific"
+      }
+    },
+    "hidden_features": [
+      "Performance mode switching",
+      "Battery optimization settings"
+    ],
+    "source_url": "https://rog.asus.com/forum/",
+    "scraped_at": "2025-08-23 03:17:40.504654",
+    "confidence_score": 0.87,
+    "compatibility_score": 0.02,
+    "feature_importance": 2.0,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "Generic_Intel_Z690_Chipset",
+    "manufacturer": "Various",
+    "model": "Intel Z690 Chipset Systems",
+    "bios_version": "Various",
+    "uefi_variables": {
+      "IntelMESettings": {
+        "size": 128,
+        "category": "vendor_specific"
+      },
+      "OverclockingProfiles": {
+        "size": 512,
+        "category": "performance"
+      },
+      "SecureBootCustomKeys": {
+        "size": 2048,
+        "category": "security"
+      }
+    },
+    "hidden_features": [
+      "Intel ME disable options",
+      "Advanced overclocking controls",
+      "Custom SecureBoot key management",
+      "Firmware TPM settings"
+    ],
+    "source_url": "https://github.com/search?q=uefi+variables",
+    "scraped_at": "2025-08-23 03:17:40.421326",
+    "confidence_score": 0.82,
+    "compatibility_score": 0.035,
+    "feature_importance": 3.3,
+    "processing_method": "CPU"
+  },
+  {
+    "hardware_id": "Generic_Intel_Z690_Chipset",
+    "manufacturer": "Various",
+    "model": "Intel Z690 Chipset Systems",
+    "bios_version": "Various",
+    "uefi_variables": {
+      "IntelMESettings": {
+        "size": 128,
+        "category": "vendor_specific"
+      },
+      "OverclockingProfiles": {
+        "size": 512,
+        "category": "performance"
+      },
+      "SecureBootCustomKeys": {
+        "size": 2048,
+        "category": "security"
+      }
+    },
+    "hidden_features": [
+      "Intel ME disable options",
+      "Advanced overclocking controls",
+      "Custom SecureBoot key management",
+      "Firmware TPM settings"
+    ],
+    "source_url": "https://github.com/search?q=bios+dump",
+    "scraped_at": "2025-08-23 03:17:40.421332",
+    "confidence_score": 0.82,
+    "compatibility_score": 0.035,
+    "feature_importance": 3.3,
+    "processing_method": "CPU"
+  }
+]
