@@ -8,3 +8,25 @@ tags/
 .venv/
 PROJECT.txt
 AUTOMATION.txt
+
+# Production-first hygiene additions
+# Build artifacts and outputs
+out/
+
+# Object/library artifacts
+utils/*.o
+utils/*.a
+utils/*.so
+
+# Virtual environments anywhere in the tree
+**/.venv/
+**/venv/
+
+# Large vendor/artifact directories
+isos/
+nuclear-cd-build/iso/
+nuclear-cd-build/iso/recovery/drivers/
+BIOS_Samples/
+
+# Safety net: ignore ISO files anywhere
+*.iso
