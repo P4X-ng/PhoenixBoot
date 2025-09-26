@@ -30,3 +30,9 @@ BIOS_Samples/
 
 # Safety net: ignore ISO files anywhere
 *.iso
+
+# Build dir (generated artifacts)
+build/
+
+# Large demo archives
+examples_and_samples/demo/**/*.tar.gz
