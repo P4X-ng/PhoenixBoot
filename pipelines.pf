@@ -1,0 +1,19 @@
+task run
+  describe PhoenixGuard pipeline: setup -> build -> package-esp -> verify -> virtual tests
+  shell bash -lc './pf.py build-setup build-build build-package-esp'
+  shell bash -lc './pf.py verify-esp-robust'
+  shell bash -lc './pf.py test-virtual'
+end
+
+task secure-pipeline
+  describe PhoenixGuard secure pipeline: setup -> build -> enroll -> verify -> secure tests
+  shell bash -lc './pf.py build-setup build-build secure-package-esp-enroll secure-enroll-secureboot build-package-esp'
+  shell bash -lc './pf.py verify-esp-robust'
+  shell bash -lc './pf.py test-qemu-secure-positive test-qemu-secure-strict'
+end
+
+task verify
+  describe Run validation (validate-all + verify-esp-robust)
+  shell bash -lc './pf.py validate-all'
+  shell bash -lc './pf.py verify-esp-robust'
+end
