@@ -1,0 +1,34 @@
+task code-org-audit-tree
+  describe Audit repository structure
+  shell bash scripts/audit-tree.sh
+end
+
+task code-org-init-structure
+  describe Create production directory structure
+  shell bash scripts/init-structure.sh
+end
+
+task code-org-move-prod-staging
+  describe Move production code to staging/
+  shell bash scripts/move-prod-staging.sh
+end
+
+task code-org-move-boot-dev
+  describe Move hardware boot development code to dev/
+  shell bash scripts/move-boot-dev.sh
+end
+
+task code-org-move-wip
+  describe Move work-in-progress implementations to wip/
+  shell bash scripts/move-wip.sh
+end
+
+task code-org-move-demo
+  describe Move demo code to demo/
+  shell bash scripts/move-demo.sh
+end
+
+task code-org-purge-demo-refs
+  describe Purge demo references from production build system
+  shell bash scripts/purge-demo-refs.sh
+end

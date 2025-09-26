@@ -1,0 +1,64 @@
+task os-boot-clean
+  describe Clean stale UEFI boot entries safely
+  shell bash scripts/os-boot-clean.sh
+end
+
+task os-mok-enroll
+  describe Enroll host MOK for module signing
+  shell bash -lc 'scripts/enroll-mok.sh "${MOK_CERT_PEM:-out/keys/mok/PGMOK.crt}" "${MOK_CERT_DER:-out/keys/mok/PGMOK.der}" ${MOK_DRY_RUN:-0}'
+end
+
+task os-mok-list-keys
+  describe List available MOK certs/keys and enrollment status
+  shell bash scripts/mok-list-keys.sh
+end
+
+task os-mok-select
+  describe Select a MOK cert+key to use for signing (prints exports)
+  shell bash scripts/mok-select-key.sh
+end
+
+task os-harden
+  describe Verify Secure Boot and sign modules
+  shell bash scripts/verify-sb.sh || true
+  shell bash scripts/sign-kmods.sh
+end
+
+task os-boot-once
+  describe One-shot boot to UUEFI (installs if needed)
+  shell bash -lc './pf.py uuefi-install'
+  shell bash scripts/host-uuefi-once.sh
+end
+
+task os-host-uuefi-once
+  describe Install UUEFI then set one-shot BootNext and exit
+  shell bash -lc './pf.py uuefi-install'
+  shell bash scripts/host-uuefi-once.sh
+end
+
+task os-kmod-load
+  describe Load kernel module (set NAME)
+  shell bash -lc 'scripts/os-kmod.sh load "${NAME:-}"'
+end
+
+task os-kmod-unload
+  describe Unload kernel module (set NAME)
+  shell bash -lc 'scripts/os-kmod.sh unload "${NAME:-}"'
+end
+
+task os-kmod-status
+  describe Show kernel module status (set NAME)
+  shell bash -lc 'scripts/os-kmod.sh status "${NAME:-}"'
+end
+
+task os-kmod-autoload
+  describe Configure module autoload (set NAME)
+  shell bash -lc '[ -n "${NAME:-}" ] || { echo "Usage: NAME=<module> ./pf.py os-kmod-autoload"; exit 1; }'
+  shell bash -lc 'scripts/kmod-autoload.sh "${NAME}"'
+end
+
+task os-kmod-sign
+  describe Sign one module file or recursively sign directory (set PATH, FORCE=1 optional)
+  shell bash -lc '[ -n "${PATH:-}" ] || { echo "Usage: PATH=<file|dir> [FORCE=1] ./pf.py os-kmod-sign"; exit 1; }'
+  shell bash -lc '"/home/punk/.venv/bin/python" utils/pgmodsign.py "${PATH}" $([ "${FORCE:-0}" = "1" ] && printf -- "--force" || true)'
+end

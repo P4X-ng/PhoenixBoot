@@ -1,0 +1,67 @@
+task validate-all
+  describe Run all validations
+  shell bash scripts/validate-keys.sh
+  shell bash scripts/validate-esp.sh
+end
+
+task validate-esp
+  describe Validate ESP contents
+  shell bash scripts/validate-esp.sh
+end
+
+task validate-keys
+  describe Validate Secure Boot AUTH blobs presence
+  shell bash scripts/validate-keys.sh
+end
+
+task verify-esp-robust
+  describe Robust ESP verification
+  shell bash scripts/verify-esp-robust.sh
+end
+
+task verify-sb
+  describe Secure Boot verification report
+  shell bash scripts/verify-sb.sh
+end
+
+task uuefi-report
+  describe UUEFI report (read-only)
+  shell bash scripts/uuefi-report.sh
+end
+
+task uuefi-apply
+  describe UUEFI apply (set BootNext; optionally create entry)
+  shell bash scripts/uuefi-apply.sh
+end
+
+task uuefi-install
+  describe Install UUEFI.efi to system ESP
+  shell bash scripts/uuefi-install.sh
+end
+
+task baseline-verify
+  describe Baseline verification (verify-only)
+  shell bash scripts/baseline-verify.sh
+end
+
+task valid-esp-secure
+  describe Ensure ESP image has shim as BOOTX64
+  shell bash scripts/esp-normalize-secure.sh
+end
+
+task esp-add-allowed-hashes
+  describe Add Allowed.manifest.sha256 into ESP
+  shell bash scripts/esp-add-allowed-hashes.sh
+end
+
+task organize-usb1
+  describe Organize a PhoenixGuard USB
+  shell bash scripts/organize-usb1.sh
+end
+
+task organize-media
+  describe Verify ESP, add allowed hashes, and organize USB if USB1_DEV set
+  shell bash -lc 'scripts/verify-esp-robust.sh'
+  shell bash -lc 'scripts/esp-add-allowed-hashes.sh'
+  shell bash -lc '[ -n "${USB1_DEV:-}" ] && scripts/organize-usb1.sh || echo "INFO: USB1_DEV not set; skipped USB organization."'
+end

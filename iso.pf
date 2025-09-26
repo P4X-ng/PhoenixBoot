@@ -1,0 +1,14 @@
+task iso-run
+  describe ISO run: setup -> build -> package ESP with ISO -> secure normalize -> verify -> QEMU boot
+  shell bash scripts/iso-run.sh
+end
+
+task iso-prep
+  describe Prepare ESP image for ISO loopback (use arg ISO_PATH or export ISO_PATH)
+  shell bash scripts/iso-prep.sh "$ISO_PATH"
+end
+
+task iso-run-qemu
+  describe Boot prepared ISO ESP in QEMU GUI
+  shell bash scripts/qemu-run.sh
+end

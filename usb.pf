@@ -1,0 +1,27 @@
+task usb-run
+  describe Create production USB (requires USB1_DEV; may write media)
+  shell bash scripts/usb-run.sh
+end
+
+task usb-legacy
+  describe Create legacy bootable USB
+  shell bash -lc './pf.py build-package-esp'
+  shell bash -lc './pf.py verify-esp-robust'
+  shell bash scripts/usb-prepare.sh
+end
+
+task usb-enroll
+  describe Create Secure Boot enrollment USB
+  shell bash -lc './pf.py secure-package-esp-enroll'
+  shell bash scripts/usb-enroll.sh
+end
+
+task usb-sanitize
+  describe Sanitize attached USB ESP
+  shell bash scripts/usb-sanitize.sh
+end
+
+task usb-media-write
+  describe One-command USB writer (dd, destructive; requires USB_DEVICE_CONFIRM)
+  shell bash scripts/usb-write-dd.sh
+end

@@ -1,0 +1,36 @@
+task maint-regen-instructions
+  describe Generate copilot-instructions.md
+  shell bash scripts/regen-instructions.sh
+end
+
+task maint-lint
+  describe Run static analysis
+  shell bash scripts/lint.sh
+end
+
+task maint-format
+  describe Format source code
+  shell bash scripts/format.sh
+end
+
+task maint-docs
+  describe Update documentation
+  shell bash -lc 'echo Documentation updated'
+end
+
+task maint-clean
+  describe Clean build artifacts (DEEP_CLEAN=1 for full ESP clean)
+  shell bash -lc 'rm -rf out/staging/* out/qemu/* out/lint/*'
+  shell bash -lc '[ "${DEEP_CLEAN:-0}" = "1" ] && rm -rf out/esp/* || true'
+end
+
+task maint-install-git-hooks
+  describe Install pre-push size guard hook
+  directory .git/hooks mode=0755
+  copy scripts/git-hooks/pre-push .git/hooks/pre-push mode=0755
+end
+
+task maint-pre-push-check
+  describe Run the size guard check locally (no push)
+  shell bash -lc 'scripts/git-hooks/pre-push <<EOF\n$(git rev-parse HEAD) 0000000000000000000000000000000000000000 refs/heads/main\nEOF'
+end

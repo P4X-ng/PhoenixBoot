@@ -1,0 +1,48 @@
+task build-setup
+  describe Bootstrap toolchain & environment
+  shell bash scripts/toolchain-check.sh
+end
+
+task build-build
+  describe Build production artifacts from staging/
+  shell bash scripts/build-production.sh
+end
+
+task build-package-esp
+  describe Package bootable ESP image
+  shell bash scripts/esp-package.sh
+end
+
+task build-package-esp-nosudo
+  describe Package ESP without sudo (uses mtools)
+  shell bash scripts/esp-package-nosudo.sh
+end
+
+task build-package-esp-iso
+  describe Package ESP with ISO support (set ISO_PATH=/path/to.iso)
+  shell bash -lc "[ -n \"${ISO_PATH:-}\" ] || { echo 'Set ISO_PATH=/path/to.iso'; exit 1; }"
+  shell bash scripts/esp-package.sh
+end
+
+task build-package-esp-neg-attest
+  describe Create negative attestation ESP
+  shell bash scripts/package-esp-neg-attest.sh
+end
+
+task build-package-esp-neg-attest-nosudo
+  describe Create negative attestation ESP (no sudo; mtools)
+  shell bash scripts/package-esp-neg-attest-nosudo.sh
+end
+
+task build-release-iso
+  describe Upload Nuclear Recovery ISO to GitHub Release (TAG required)
+  shell bash -lc "[ -n \"${TAG:-}\" ] || { echo 'Set TAG=vX.Y.Z'; exit 1; }"
+  shell bash scripts/release/upload_release.sh -t "$TAG" -a nuclear-cd-build/PhoenixGuard-Nuclear-Recovery.iso
+end
+
+task build-release-create
+  describe Create/update GitHub Release (TAG, optional ASSETS NAME NOTES)
+  shell bash -lc "[ -n \"${TAG:-}\" ] || { echo 'Set TAG=vX.Y.Z'; exit 1; }"
+  shell bash scripts/release/upload_release.sh -t "$TAG" -n "${NAME:-}" -N "${NOTES:-}"
+  shell bash -lc "for a in ${ASSETS:-}; do [ -f \"$a\" ] && scripts/release/upload_release.sh -t \"$TAG\" -a \"$a\" || echo \"WARN missing $a\"; done"
+end

@@ -1,0 +1,57 @@
+task test-tests
+  describe Run all production tests
+  shell bash scripts/run-staging-tests.sh
+end
+
+task test-tests-nosudo
+  describe Run production tests (no sudo)
+  shell bash scripts/run-staging-tests.sh
+end
+
+task test-virtual
+  describe Run QEMU base tests
+  shell bash scripts/qemu-test.sh
+end
+
+task test-qemu
+  describe Main QEMU boot test
+  shell bash scripts/qemu-test.sh
+end
+
+task test-qemu-secure-positive
+  describe Secure Boot positive test
+  shell bash scripts/qemu-test-secure-positive.sh
+end
+
+task test-qemu-secure-strict
+  describe Secure Boot strict test
+  shell bash scripts/qemu-test-secure-strict.sh
+end
+
+task test-qemu-secure-negative-attest
+  describe Secure Boot negative attestation test
+  shell bash scripts/qemu-test-secure-negative-attest.sh
+end
+
+task test-qemu-secure-negative-attest-nosudo
+  describe Secure Boot negative attestation test (no sudo)
+  shell bash scripts/qemu-test-secure-negative-attest-nosudo.sh
+end
+
+task test-qemu-uuefi
+  describe UUEFI application test
+  shell bash scripts/qemu-test-uuefi.sh
+end
+
+task test-progressive-smoke
+  describe Progressive recovery smoke (no host changes)
+  shell bash -lc 'PG_HOST_OK=0 true'
+  shell bash -lc 'echo running level1/level2 via existing scripts'
+  shell bash scripts/qemu-test.sh
+end
+
+task test-progressive-planfile
+  describe Progressive planfile generation (dry-run)
+  shell bash tests/progressive_planfile_check.sh
+  shell bash -lc 'ls -1 plans/phoenix_progressive_*.json | tail -n1 | xargs -r -I{} sh -c "echo Plan: {}; head -c 200 {} | sed -n \"1,20p\" || true"'
+end

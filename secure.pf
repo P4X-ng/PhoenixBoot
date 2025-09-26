@@ -1,0 +1,90 @@
+task secure-keygen
+  describe Generate Secure Boot keypairs (RSA-4096) and X.509 certs
+  shell bash scripts/generate-sb-keys.sh
+end
+
+task secure-make-auth
+  describe Create ESL and AUTH for PK/KEK/db
+  shell bash scripts/create-auth-files.sh
+end
+
+task secure-package-esp-enroll
+  describe Package enrollment ESP
+  shell bash scripts/esp-package-enroll.sh
+end
+
+task secure-package-esp-enroll-nosudo
+  describe Package enrollment ESP (no sudo; mtools)
+  shell bash scripts/esp-package-enroll-nosudo.sh
+end
+
+task secure-enroll-secureboot
+  describe Auto-enroll custom SB keys in OVMF
+  shell bash scripts/enroll-secureboot.sh
+end
+
+task secure-enroll-secureboot-nosudo
+  describe Auto-enroll custom SB keys in OVMF (no sudo)
+  shell bash scripts/enroll-secureboot-nosudo.sh
+end
+
+task secure-qemu-run-secure-ui
+  describe Launch QEMU GUI to enable Secure Boot
+  shell bash scripts/qemu-run-secure-ui.sh
+end
+
+task secure-mok-status
+  describe Show Secure Boot state and MOKs
+  shell bash scripts/mok-status.sh
+end
+
+task secure-mok-verify
+  describe Verify MOK certificate details
+  shell bash -lc 'scripts/mok-verify.sh "${MOK_CERT_PEM:-out/keys/mok/PGMOK.crt}" "${MOK_CERT_DER:-out/keys/mok/PGMOK.der}"'
+end
+
+task secure-mok-find-enrolled
+  describe Match local certs to enrolled MOKs
+  shell bash scripts/mok-find-enrolled.sh
+end
+
+task secure-enroll-mok
+  describe Enroll PhoenixGuard MOK certificate
+  shell bash -lc 'scripts/enroll-mok.sh "${MOK_CERT_PEM:-out/keys/mok/PGMOK.crt}" "${MOK_CERT_DER:-out/keys/mok/PGMOK.der}" ${MOK_DRY_RUN:-0}'
+end
+
+task secure-mok-new
+  describe Generate new PhoenixGuard MOK keypair (use NAME and CN env)
+  shell bash -lc 'scripts/mok-new.sh "${NAME:-PGMOK}" "${CN:-PhoenixGuard Module Key}"'
+end
+
+task secure-mok-enroll-new
+  describe Generate + enroll PhoenixGuard MOK (reboot to complete)
+  shell bash -lc 'scripts/mok-new.sh "${NAME:-PGMOK}" "${CN:-PhoenixGuard Module Key}"'
+  shell bash -lc 'scripts/enroll-mok.sh "out/keys/${NAME:-PGMOK}.crt" "out/keys/${NAME:-PGMOK}.der" ${MOK_DRY_RUN:-0}'
+end
+
+task secure-keys-centralize
+  describe Centralize keys into out/keys
+  shell bash scripts/keys-centralize.sh
+end
+
+task secure-keys-prune
+  describe Backup + remove legacy key locations
+  shell bash scripts/keys-centralize.sh --prune
+end
+
+task secure-mok-inventory
+  describe JSON inventory of keys and enrollment
+  shell bash scripts/keys-inventory.sh
+end
+
+task secure-unenroll-mok
+  describe Remove PhoenixGuard MOK certificate
+  shell bash -lc 'scripts/unenroll-mok.sh "${MOK_CERT_DER:-out/keys/mok/PGMOK.der}"'
+end
+
+task secure-der-extract
+  describe Convert DER/PKCS#12 bundle into PEM cert and key (set PATH, OUT_DIR, NAME)
+  shell bash -lc 'scripts/der-extract.sh "${PATH:-}" "${OUT_DIR:-out/keys}" "${NAME:-PGMOK}"'
+end
