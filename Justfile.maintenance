@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show maintenance module help
 help:
-	@echo "🧹 PhoenixGuard Maintenance Module"
-	@echo "===================================="
+	@echo "PhoenixGuard Maintenance Module"
+	@echo "================================"
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just maint regen-instructions   # Generate copilot-instructions.md"
@@ -15,33 +17,47 @@ help:
 	@echo "  just maint format               # Format source code"
 	@echo "  just maint docs                 # Update documentation"
 	@echo "  just maint clean                # Clean build artifacts"
+	@echo "  just maint install-git-hooks    # Install pre-push size guard hook"
+	@echo "  just maint pre-push-check       # Run the size guard check locally"
 	@echo ""
 
 # Generate copilot-instructions.md from components
 regen-instructions:
-	@echo "📝 Generating copilot-instructions.md..."
+	@echo "Generating copilot-instructions.md..."
 	@bash scripts/regen-instructions.sh
 
 # Lint sources
 lint:
-	@echo "🔍 Running static analysis..."
+	@echo "Running static analysis..."
 	@mkdir -p {{OUT_DIR}}/lint
 	@bash scripts/lint.sh
 
 # Format sources
 format:
-	@echo "🎨 Formatting code..."
+	@echo "Formatting code..."
 	@bash scripts/format.sh
 
 # Update documentation
 docs:
-	@echo "📚 Updating documentation..."
+	@echo "Updating documentation..."
 	# This can be expanded with a static site generator or other tools
-	@echo "✅ Documentation updated"
+	@echo "Documentation updated"
 
 # Clean build artifacts
 clean:
-	@echo "🧹 Cleaning build artifacts..."
+	@echo "Cleaning build artifacts..."
 	@rm -rf {{OUT_DIR}}/staging/* {{OUT_DIR}}/qemu/* {{OUT_DIR}}/lint/*
 	@if [ "${DEEP_CLEAN:-}" = "1" ]; then rm -rf {{OUT_DIR}}/esp/*; fi
-	@echo "✅ Build artifacts cleaned"
+	@echo "Build artifacts cleaned"
+
+# Install pre-push hook
+install-git-hooks:
+	@mkdir -p .git/hooks
+	@install -m 0755 scripts/git-hooks/pre-push .git/hooks/pre-push
+	@echo "Installed pre-push size guard hook"
+
+# Run the pre-push check locally (no push)
+pre-push-check:
+	@bash scripts/git-hooks/pre-push <<EOF
+	$(git rev-parse HEAD) 0000000000000000000000000000000000000000 refs/heads/main
+	EOF

@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show test module help
 help:
-	@echo "🧪 PhoenixGuard Test Module"
-	@echo "============================="
+	@echo "PhoenixGuard Test Module"
+	@echo "========================"
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just test test                  # Run all production tests"
@@ -17,9 +19,9 @@ help:
 	@echo "  just test qemu-test             # Main QEMU boot test"
 	@echo "  just test qemu-test-secure-positive # Secure Boot positive test"
 	@echo "  just test qemu-test-secure-strict   # Strict SB test (markers)"
-	@echo "  just test qemu-test-uuefi        # UUEFI application test"
-	@echo "  just test progressive-smoke      # Progressive recovery L1-L2 smoke"
-	@echo "  just test progressive-planfile   # Planfile generation sanity"
+	@echo "  just test qemu-test-uuefi       # UUEFI application test"
+	@echo "  just test progressive-smoke     # Progressive recovery L1-L2 smoke"
+	@echo "  just test progressive-planfile  # Planfile generation sanity"
 	@echo ""
 
 # --- Umbrella Targets ---

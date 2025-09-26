@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show validate module help
 help:
-	@echo "✅ PhoenixGuard Validation Module"
-	@echo "=================================="
+	@echo "PhoenixGuard Validation Module"
+	@echo "=============================="
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just validate validate-all      # Run all validations"

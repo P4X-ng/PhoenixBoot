@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show os module help
 help:
-	@echo "🖥️  PhoenixGuard OS Module"
-	@echo "=========================="
+	@echo "PhoenixGuard OS Module"
+	@echo "======================"
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just os boot-clean                      # Clean stale UEFI boot entries"

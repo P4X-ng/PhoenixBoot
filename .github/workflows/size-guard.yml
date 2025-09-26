@@ -1,0 +1,45 @@
+name: size-guard
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  size-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find oversized files (>50MB)
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Determine range for PRs; for push check last commit
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            RANGE="origin/${{ github.base_ref }}..HEAD"
+          else
+            RANGE="HEAD~1..HEAD"
+          fi
+
+          echo "Checking blobs in range: $RANGE"
+          oversize=$(git rev-list --objects $RANGE \
+            | awk 'NF==2 {print $1, $2}' \
+            | while read -r oid path; do size=$(git cat-file -s "$oid" 2>/dev/null || echo 0); \
+                if (( size > 50*1024*1024 )); then echo "$path $((size/1048576))MB"; fi; done)
+
+          if [[ -n "$oversize" ]]; then
+            echo "The following files exceed 50MB and must not be committed:"
+            echo "$oversize"
+            exit 1
+          fi
+
+          # Also guard working-tree checked in files (fallback)
+          big_tree=$(find . -type f -not -path "./.git/*" -size +50M)
+          if [[ -n "$big_tree" ]]; then
+            echo "Working tree contains files >50MB:"; echo "$big_tree"; exit 1; fi
+
+          echo "OK: no oversized files detected"

@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Pre-push hook to block large blobs (>50MB) from being pushed
+# Usage: installed as .git/hooks/pre-push; reads ref updates from stdin
+set -euo pipefail
+
+max_size_bytes=$((50 * 1024 * 1024))
+found=0
+
+# Read lines like: <local_sha> <remote_sha> <refname>
+while read -r local remote refname; do
+  # For new branches, remote may be 0000...; handle ranges accordingly
+  if [[ "$remote" == 0000000000000000000000000000000000000000 ]]; then
+    range="$local"
+  else
+    range="${remote}..${local}"
+  fi
+
+  # Map OID -> path and check each blob's size
+  while read -r oid path; do
+    # Skip if no path (just OID)
+    [[ -z "${oid}" ]] && continue
+    size=$(git cat-file -s "$oid" 2>/dev/null || echo 0)
+    if (( size > max_size_bytes )); then
+      mb=$(( size / 1048576 ))
+      echo "ERROR: file too large: ${path} (${mb}MB) exceeds 50MB limit" >&2
+      found=1
+    fi
+  done < <(git rev-list --objects ${range} | awk 'NF==2 {print $1, $2}')
+
+done
+
+if (( found )); then
+  echo "Push rejected by size guard. Use GitHub Releases for large artifacts (ISOs, images, vendor drivers)." >&2
+  echo "Tip: TAG=vX.Y.Z ASSETS=\"path/to/asset1 path/to/asset2\" just build release-create" >&2
+  exit 1
+fi
+
+exit 0

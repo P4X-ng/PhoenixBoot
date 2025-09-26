@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show security module help
 help:
-	@echo "🔐 PhoenixGuard Security Module"
-	@echo "=============================="
+	@echo "PhoenixGuard Security Module"
+	@echo "============================"
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just secure keygen                # Generate Secure Boot keypairs (RSA-4096)"
@@ -28,7 +30,7 @@ help:
 	@echo "  just secure mok-inventory         # JSON inventory of keys and enrollment"
 	@echo ""
 	@echo "Conversions:"
-	@echo "  just secure der-extract path=...  # Convert DER/PKCS#12 → cert.pem/key.pem"
+	@echo "  just secure der-extract path=...  # Convert DER/PKCS#12 to cert.pem/key.pem"
 	@echo ""
 
 # Generate Secure Boot keypairs (RSA-4096) and X.509 certs

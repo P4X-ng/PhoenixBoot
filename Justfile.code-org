@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show code organization module help
 help:
-	@echo "📁 PhoenixGuard Code Organization Module"
-	@echo "=========================================="
+	@echo "PhoenixGuard Code Organization Module"
+	@echo "====================================="
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just code-org audit-tree        # Audit repository structure"

@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show build module help
 help:
-	@echo "🔨 PhoenixGuard Build Module"
-	@echo "============================"
+	@echo "PhoenixGuard Build Module"
+	@echo "========================="
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just build setup                # Bootstrap toolchain & environment"
@@ -16,17 +18,22 @@ help:
 	@echo "  just build package-esp-nosudo   # Package ESP without sudo (mtools)"
 	@echo "  just build package-esp-iso      # Package ESP with ISO support"
 	@echo "  just build package-esp-neg-attest # Create negative attestation ESP"
+	@echo "  just build release-iso          # Create a GitHub Release with ISO asset"
+	@echo "  just build release-create       # Create/upload release with assets (see help)"
 	@echo ""
+	@echo "Release usage examples:"
+	@echo "  TAG=v0.1.0 ASSETS=\"nuclear-cd-build/PhoenixGuard-Nuclear-Recovery.iso\" just build release-create"
+	@echo "  just build release-iso tag=v0.1.0"
 
 # Bootstrap toolchain and environment
 setup:
-	@echo "🔧 Bootstrapping PhoenixGuard toolchain..."
+	@echo "Bootstrapping PhoenixGuard toolchain..."
 	@mkdir -p {{OUT_DIR}}/setup
 	@bash scripts/toolchain-check.sh
 
 # Build production artifacts from staging/
 build:
-	@echo "🔨 Building production artifacts from staging/..."
+	@echo "Building production artifacts from staging/..."
 	@mkdir -p {{OUT_DIR}}/staging
 	@bash scripts/build-production.sh
 
@@ -62,3 +69,29 @@ package-esp-neg-attest:
 # Package a negative-attestation ESP without sudo by overwriting hash via mtools
 package-esp-neg-attest-nosudo:
 	@bash scripts/package-esp-neg-attest-nosudo.sh
+
+# --- Release helpers ---
+# Release ISO asset quickly using gh (requires GH_TOKEN or gh auth)
+release-iso tag="":
+	#!/usr/bin/env bash
+	set -euo pipefail
+	TAG='{{tag}}'
+	ASSET="nuclear-cd-build/PhoenixGuard-Nuclear-Recovery.iso"
+	if [ -z "${TAG}" ]; then echo "Usage: just build release-iso tag=vX.Y.Z"; exit 1; fi
+	if [ ! -f "${ASSET}" ]; then echo "Missing asset: ${ASSET}"; exit 1; fi
+	bash scripts/release/upload_release.sh -t "${TAG}" -a "${ASSET}"
+
+# Generic release creator: pass TAG via env and ASSETS as a space-separated list
+release-create:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	TAG="${TAG:-}"
+	ASSETS="${ASSETS:-}"
+	NAME="${NAME:-}"
+	NOTES="${NOTES:-}"
+	if [ -z "${TAG}" ]; then echo "Set TAG=vX.Y.Z and optionally ASSETS=\"path1 path2\" NAME=... NOTES=..."; exit 1; fi
+	args=( -t "${TAG}" )
+	[ -n "${NAME}" ] && args+=( -n "${NAME}" )
+	[ -n "${NOTES}" ] && args+=( -N "${NOTES}" )
+	for a in ${ASSETS}; do args+=( -a "$a" ); done
+	bash scripts/release/upload_release.sh "${args[@]}"

@@ -3,11 +3,13 @@
 # Import shared variables
 import './Justfile.vars'
 
+# Default target
+default: help
 
 # Show iso module help
 help:
-	@echo "💿 PhoenixGuard ISO Module"
-	@echo "============================"
+	@echo "PhoenixGuard ISO Module"
+	@echo "======================="
 	@echo ""
 	@echo "Available commands:"
 	@echo "  just iso run                    # Full ISO workflow (setup->build->boot)"
@@ -16,14 +18,14 @@ help:
 	@echo ""
 
 # High-level: prepare ESP with ISO and boot it in QEMU
-iso-run:
-	@echo "🚀 ISO run: setup → build → package ESP with ISO → secure normalize → verify → QEMU boot"
+run:
+	@echo "ISO run: setup -> build -> package ESP with ISO -> secure normalize -> verify -> QEMU boot"
 	@bash scripts/iso-run.sh
 
 # Prepare an ESP image that can boot an ISO via GRUB loopback
-iso-prep iso_path="":
+prep iso_path="":
 	@bash scripts/iso-prep.sh '{{iso_path}}'
 
 # QEMU boot the prepared ISO ESP (GUI)
-iso-run-qemu:
+run-qemu:
 	@bash scripts/qemu-run.sh
