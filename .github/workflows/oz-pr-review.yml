@@ -18,7 +18,7 @@ jobs:
     runs-on: [self-hosted, linux, x64, big]
     if: github.event_name == 'issues' && github.event.label.name == 'warp'
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
         with:
           fetch-depth: 0
 
@@ -73,7 +73,7 @@ jobs:
           echo "trusted=$trusted" >> "$GITHUB_OUTPUT"
           echo "matched=$matched" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
         if: steps.trigger.outputs.trusted == 'true' && steps.trigger.outputs.matched == 'true'
         with:
           fetch-depth: 0
@@ -132,7 +132,7 @@ jobs:
           echo "trusted=$trusted" >> "$GITHUB_OUTPUT"
           echo "matched=$matched" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
         if: steps.trigger.outputs.trusted == 'true' && steps.trigger.outputs.matched == 'true'
         with:
           fetch-depth: 0
@@ -188,7 +188,7 @@ jobs:
           echo "trusted=$trusted" >> "$GITHUB_OUTPUT"
           echo "matched=$matched" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
         if: steps.trigger.outputs.trusted == 'true' && steps.trigger.outputs.matched == 'true'
         with:
           fetch-depth: 0
